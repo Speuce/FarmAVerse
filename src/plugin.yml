@@ -1,0 +1,35 @@
+name: FarmTopia
+version: 1.0
+api-version: 1.13
+main: com.speuce.farmtopia.main.FarmTopia
+author: Speuce
+commands:
+  save:
+    usage: /save <name>
+  load:
+    usage: /load <name>
+  md:
+    usage: /<command>
+  item:
+    usage: /item <Player> <Item> <Amount>
+    aliases: i
+  balance:
+    usage: /balance
+    aliases: [bal, money]
+  eco:
+    usage: /eco <set|add|remove> <Player> <amt>
+  farm:
+    usage: ERROR.
+    aliases: f
+  crft:
+    usage: /crft <number>
+  exp:
+    usage: /<command> <target> <amt>
+  job:
+    usage: ERROR
+    aliases: [j, jobs, work]
+  givejob:
+    usage: /<command> <target>
+    aliases: [gj]
+  purge:
+    usage: /<command> <target>
