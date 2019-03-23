@@ -36,7 +36,7 @@ public class TownHall extends Upgradeable{
 	}
 
 	@Override
-	public void onInteract(PlayerInteractEvent e) {
+	public void onInteractOwner(PlayerInteractEvent e) {
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK){
 			if(e.getClickedBlock().getType() == Material.ENCHANTING_TABLE){
 				this.openUpgradeInventory(e.getPlayer());

@@ -6,6 +6,8 @@ author: Speuce
 commands:
   save:
     usage: /save <name>
+  gm:
+    usage: /gm <c|a|s|sp> <target>
   load:
     usage: /load <name>
   md:
@@ -31,5 +33,10 @@ commands:
   givejob:
     usage: /<command> <target>
     aliases: [gj]
+  debug:
+    usage: /db <params>
+    aliases: [db]
   purge:
     usage: /<command> <target>
+  shop:
+    usage: /<command>

@@ -3,6 +3,7 @@ package com.speuce.farmtopia.plot;
 import com.speuce.farmtopia.farm.Farm;
 import com.speuce.farmtopia.plot.upgradeable.Pavillion;
 import com.speuce.farmtopia.plot.upgradeable.ResearchCentre;
+import com.speuce.farmtopia.plot.upgradeable.Shop;
 import com.speuce.farmtopia.plot.upgradeable.TownHall;
 
 public class Plots {
@@ -28,6 +29,7 @@ public class Plots {
 			case 7:
 				return Pavillion.getBytes(protocol, 3);
 				//RESERVE to 16
+			case 17: return Shop.getBytes(protocol);
 			default:
 				return 0;
 		}
@@ -59,6 +61,12 @@ public class Plots {
 			}else{
 				return 3;
 			}
+		}else if(clazz.equals(Shop.class)){
+			if(lv >= 2) {
+				return 1;
+			}else {
+				return 0;
+			}
 		}else{
 			return 100;
 		}
@@ -73,6 +81,8 @@ public class Plots {
 			return ResearchCentre.class;
 		}else if(nom.equalsIgnoreCase("Pavillion")){
 			return Pavillion.class;
+		}else if(nom.equalsIgnoreCase("Shop")){
+			return Shop.class;
 		}else{
 			return null;
 		}
@@ -86,6 +96,8 @@ public class Plots {
 			return TownHall.getBytes(protocol);
 		}else if(p instanceof ResearchCentre){
 			return ResearchCentre.getBytes(protocol);
+		}else if(p instanceof Shop){
+			return Shop.getBytes(protocol);
 		}else if(p instanceof Pavillion){
 			return Pavillion.getBytes(protocol,((Pavillion) p).getLv());
 		}else{
@@ -111,6 +123,8 @@ public class Plots {
 				return Pavillion.deserialize(data,protocol, f, 2);
 			case 7:
 				return Pavillion.deserialize(data,protocol, f, 3);
+			case 17:
+				return Shop.deserialize(f, data);
 			default:
 				return null;
 		}
@@ -139,6 +153,8 @@ public class Plots {
 			default:
 				return 4;
 			}
+		}else if(p instanceof Shop){
+			return (byte)17;
 		}else{
 			return 0;
 		}
