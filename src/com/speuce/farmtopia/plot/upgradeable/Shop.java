@@ -68,7 +68,13 @@ public class Shop extends Upgradeable{
 	}
 	@Override
 	public int getCost(int currentlv) {
-		// TODO Auto-generated method stub
+		if(currentlv == 0) {
+			return 500;
+		}else if(currentlv == 1) {
+			return 1000;
+		}else if(currentlv == 0) {
+			return 1500;
+		}
 		return 0;
 	}
 
@@ -83,7 +89,7 @@ public class Shop extends Upgradeable{
 	public void onEntityInteract(PlayerInteractEntityEvent e) {
 		if(e.getRightClicked().getType() == EntityType.VILLAGER) {
 			if(this.getFarm().getOwner().equals(e.getPlayer())) {
-				FarmTopia.getFarmTopia().getShop().openShop(p, id);
+				FarmTopia.getFarmTopia().getShop().openShop(e.getPlayer(), id, this.getLv());
 			}else {
 				
 			}

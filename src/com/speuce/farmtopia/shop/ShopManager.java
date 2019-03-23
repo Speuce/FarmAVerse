@@ -48,6 +48,8 @@ public class ShopManager implements CommandExecutor, Listener{
 	public ShopManager(SQLManager sql, FarmTopia main){
 		this.sql = sql;
 		this.main = main;
+		loadedShops = new HashMap<Integer, Shop>();
+		this.opened = new HashMap<Player, Shop>();
 		advertise = new ItemStack(Material.GOLD_BLOCK, 1);
 		ItemMeta met = advertise.getItemMeta();
 		met.setDisplayName(ChatColor.GOLD.toString() + "Advertise an Offer");
@@ -59,8 +61,7 @@ public class ShopManager implements CommandExecutor, Listener{
 		
 		main.getCommand("shop").setExecutor(this);
 		this.makeTable();
-		loadedShops = new HashMap<Integer, Shop>();
-		this.opened = new HashMap<Player, Shop>();
+
 		FarmTopia.getFarmTopia().getServer().getPluginManager().registerEvents(this, FarmTopia.getFarmTopia());
 		
 		//this.search = new ItemStack(Material.BOW, 1, ());
@@ -247,7 +248,7 @@ public class ShopManager implements CommandExecutor, Listener{
 						}
 					}else if(stack.equals(advertise)) {
 						//TODO advertisements
-					}else {
+					}else if(e.isRightClick()){
 						ShopOffer o = s.getOffer(sl);
 						if(o != null) {
 							if(!Constant.isFull(pl)) {
