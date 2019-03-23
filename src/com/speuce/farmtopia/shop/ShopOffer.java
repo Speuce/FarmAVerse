@@ -1,16 +1,20 @@
 package com.speuce.farmtopia.shop;
 
+import java.sql.Timestamp;
+
 import com.speuce.farmtopia.resources.Resource;
 
 public class ShopOffer {
 	private Resource item;
 	private short amount;
 	private double price;
-	private Long created;
+	private Timestamp created;
 	private int shopID;
+	private int ID;
 	private boolean taken;
 	
-	public ShopOffer(Resource item, short amount, double price, Long created, int shopID, boolean taken) {
+	public ShopOffer(int id, Resource item, short amount, double price, Timestamp created, int shopID, boolean taken) {
+		this.ID = id;
 		this.item = item;
 		this.amount = amount;
 		this.price = price;
@@ -18,13 +22,16 @@ public class ShopOffer {
 		this.shopID = shopID;
 		this.taken = taken;
 	}
+	public int getId() {
+		return ID;
+	}
 	public Resource getItem() {
 		return item;
 	}
 	public short getAmount() {
 		return amount;
 	}
-	public Long getCreated() {
+	public Timestamp getCreated() {
 		return created;
 	}
 	public int getShopID() {

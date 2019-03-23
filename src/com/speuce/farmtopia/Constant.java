@@ -34,13 +34,18 @@ public class Constant {
 			"Anita", "Sandra", "Alexander", "Penny", "Ben", "Stuart",
 			"Bob", "Brian", "Bailey","Matt", "Jane", "Justin", "Abel", "Susan", "Hudson", "Kara"};
 	private static Set<Player> debugs = new HashSet<Player>();
-	
+	private static ItemStack ok = null;
 	public static ItemStack getOk(){
-		ItemStack i = new ItemStack(Material.EMERALD_BLOCK);
-		ItemMeta met = i.getItemMeta();
-		met.setDisplayName(ChatColor.GREEN + "Ok");
-		i.setItemMeta(met);
-		return i;
+		if(ok == null) {
+			ok = new ItemStack(Material.EMERALD_BLOCK);
+			ItemMeta met = ok.getItemMeta();
+			met.setDisplayName(ChatColor.GREEN + "Ok");
+			ok.setItemMeta(met);
+		}
+		return ok;
+	}
+	public static void wrong(Player pl) {
+		pl.playSound(pl.getLocation(), Sound.BLOCK_ANVIL_FALL, 0.8F, 1.2F);
 	}
 	public static void addDebug(Player pl){
 		debugs.add(pl);
@@ -110,6 +115,9 @@ public class Constant {
 		ret.setItemMeta(retm);
 		return ret;
 	}
+	public static boolean isFull(Player p) {
+		return p.getInventory().firstEmpty() == -1;
+	}
 	public static boolean isEssence(Resource s){
 		return s.toString().contains("ESSENCE");
 	}
@@ -147,6 +155,9 @@ public class Constant {
 	}
 
 	public static void forceGive(Player p, ItemStack i){
+		if(i == null || i.equals(Constant.getOk())) {
+			return;
+		}
 		if(p.getInventory().firstEmpty() > -1){
 			if(i.getType() != Material.BOW){
 				p.getInventory().addItem(i);

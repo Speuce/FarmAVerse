@@ -47,6 +47,7 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -71,6 +72,7 @@ import com.speuce.farmtopia.plot.Plots;
 import com.speuce.farmtopia.plot.upgradeable.ResearchCentre;
 import com.speuce.farmtopia.plot.upgradeable.Upgradeable;
 import com.speuce.farmtopia.resources.Resource;
+import com.speuce.farmtopia.util.Debug;
 import com.speuce.farmtopia.util.Economy;
 import com.speuce.farmtopia.util.SC;
 import com.speuce.schemetic.RunnablePredefinedSchem;
@@ -629,6 +631,24 @@ public class FarmManager implements Listener, CommandExecutor {
 	}
 
 	@EventHandler
+	public void onEntityInteract(PlayerInteractEntityEvent e) {
+		if(e.getRightClicked() != null) {
+			Location l = e.getRightClicked().getLocation();
+			Location pl = new Location(l.getWorld(), this.nearest500(l.getBlockX() - 16),
+					Constant.baseY, this.nearest500(l.getBlockZ() - 16));
+			if(lookup.containsKey(pl)) {
+				Farm f = lookup.get(pl);
+				Plot plot = f.getPlot(l.getChunk());
+				if (plot != null) {
+					plot.onEntityInteract(e);
+				}
+			}else {
+				db("Ent clik not at farm.");
+				return;
+			}
+		}
+	}
+	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 		if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.EXPERIENCE_BOTTLE
 				&& e.getAction().toString().contains("RIGHT")) {
@@ -657,7 +677,7 @@ public class FarmManager implements Listener, CommandExecutor {
 				if (f.getOwner() == e.getPlayer()) {
 					Plot plot = f.getPlot(e.getClickedBlock().getChunk());
 					if (plot != null) {
-						plot.onInteract(e);
+						plot.onInteractOwner(e);
 					}
 				} else {
 					e.getPlayer().sendMessage(ChatColor.RED + "This is not your farm!");
@@ -1148,5 +1168,8 @@ public class FarmManager implements Listener, CommandExecutor {
 			}
 		}
 		return false;
+	}
+	public void db(String s) {
+		Debug.getInstance().log(Debug.Type.FARM, s);
 	}
 }

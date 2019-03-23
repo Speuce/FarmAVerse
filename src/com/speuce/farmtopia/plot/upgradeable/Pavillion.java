@@ -46,7 +46,7 @@ public class Pavillion extends Upgradeable implements Listener{
 	}
 
 	@Override
-	public void onInteract(PlayerInteractEvent e) {
+	public void onInteractOwner(PlayerInteractEvent e) {
 		e.setCancelled(true);
 		if(e.getClickedBlock().getType() == Material.CHEST && !locs.isEmpty()){
 			int chestnum = locs.indexOf(e.getClickedBlock());

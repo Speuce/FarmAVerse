@@ -128,7 +128,7 @@ public class FarmPlot extends Plot {
 	}
 
 	@Override
-	public void onInteract(PlayerInteractEvent e) {
+	public void onInteractOwner(PlayerInteractEvent e) {
 		int fs = farmSpot(e.getClickedBlock());
 		if (fs >= 0) {
 			if (!this.subPlots[fs].hasActualPlant()) {

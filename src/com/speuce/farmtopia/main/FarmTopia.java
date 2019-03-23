@@ -1,9 +1,11 @@
 package com.speuce.farmtopia.main;
 
 import java.text.NumberFormat;
+import java.util.stream.Stream;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -19,6 +21,8 @@ import com.speuce.farmtopia.farm.Tutorial;
 import com.speuce.farmtopia.jobs.JobManager;
 import com.speuce.farmtopia.plot.BuildQueue;
 import com.speuce.farmtopia.resources.Resource;
+import com.speuce.farmtopia.shop.ShopManager;
+import com.speuce.farmtopia.util.Debug;
 import com.speuce.farmtopia.util.Economy;
 import com.speuce.schemetic.SchemeticManager;
 import com.speuce.sql.SQLManager;
@@ -33,6 +37,7 @@ public class FarmTopia extends JavaPlugin implements Listener{
 	private CraftingManager cm;
 	private JobManager jm;
 	private ChunkGenerator chunk;
+	private ShopManager shop;
 	@Override
 	public void onEnable(){
 //		this.sql = new SQLManager(this);
@@ -58,15 +63,20 @@ public class FarmTopia extends JavaPlugin implements Listener{
 		this.getCommand("item").setExecutor(new Item());
 		this.getCommand("balance").setExecutor(this);
 		this.getCommand("eco").setExecutor(this);
+		this.getCommand("debug").setExecutor(this);
+		this.getCommand("gm").setExecutor(this);
 		this.getServer().getPluginManager().registerEvents(this, this);
 		this.timer1 = BuildQueue.start();
 		this.timer1.runTaskTimerAsynchronously(this, 50L, 5L);
 		this.cm = new CraftingManager(this);
+		this.shop = new ShopManager(sql, this);
 		
 	}
 	public static FarmTopia getFarmTopia(){
 		return instance;
-		
+	}
+	public ShopManager getShop() {
+		return this.shop;
 	}
 	@Override
 	public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
@@ -111,6 +121,73 @@ public class FarmTopia extends JavaPlugin implements Listener{
 				return true;
 			}else{
 				p.sendMessage(ChatColor.RED.toString() + "Whoa, slow down there partner! The server hasn't even loaded your dollar bills yet!");
+				return true;
+			}
+		}
+	}else if(cmd.getName().equalsIgnoreCase("debug")){
+		if(sender.isOp()) {
+			if(args.length == 0) {
+				if(Debug.getInstance().toggleType(Debug.Type.GENERAL)) {
+					sender.sendMessage(ChatColor.GREEN + "Toggled General Debugging ON");
+					return true;
+				}else {
+					sender.sendMessage(ChatColor.RED + "Toggled General Debugging OFF");
+					return true;
+				}
+			}else {
+				if(args[0].equalsIgnoreCase("log")) {
+					if(Debug.getInstance().isLogging()) {
+						Debug.getInstance().setLog(false);
+						sender.sendMessage(ChatColor.RED + "Toggled Debug Logging OFF");
+						return true;
+					}else {
+						Debug.getInstance().setLog(true);
+						sender.sendMessage(ChatColor.GREEN + "Toggled Debug Logging ON");
+						return true;
+					}
+				}else {
+					Debug.Type t = Debug.Type.match(args[0]);
+					if(t == null) {
+						sender.sendMessage(ChatColor.RED + "Debug Type: " + t + " couldn't be found!");
+						StringBuilder s = new StringBuilder(" ");
+						Stream.of(Debug.Type.values()).forEach(i -> s.append(i.toString()));
+						sender.sendMessage(ChatColor.RED + "Valid Types: " + s.toString());
+						return true;
+					}else {
+						if(Debug.getInstance().toggleType(t)) {
+							sender.sendMessage(ChatColor.GREEN + "Toggled Debug for " + t.toString() + " ON");
+							return true;
+						}else {
+							sender.sendMessage(ChatColor.RED + "Toggled Debug for " + t.toString() + " OFF");
+							return true;
+						}
+					}
+				}
+			}
+		}
+	}else if(cmd.getName().equalsIgnoreCase("gm")){
+		if(sender.isOp() && sender instanceof Player) {
+			Player pl = (Player) sender;
+			if(args.length == 2) {
+				String name = args[1];
+				Player p2 = Bukkit.getPlayer(name);
+				if(p2 == null) {
+					sender.sendMessage(ChatColor.RED + "Player: " + name + " couldn't be found!");
+					return true;
+				}
+				pl = p2;
+			}
+			if(args[0].equalsIgnoreCase("c")) {
+				pl.setGameMode(GameMode.CREATIVE);
+				return true;
+			}else if(args[0].equalsIgnoreCase("s")) {
+				pl.setGameMode(GameMode.SURVIVAL);
+				return true;
+			}else if(args[0].equalsIgnoreCase("a")) {
+				pl.setGameMode(GameMode.ADVENTURE);
+				return true;
+			}else if(args[0].equalsIgnoreCase("sp")) {
+				pl.setGameMode(GameMode.SPECTATOR);
 				return true;
 			}
 		}

@@ -46,6 +46,10 @@ public class Economy {
 		Double ne = balances.get(d) -sub;
 		balances.put(d,ne);
 		SC.updateMoney(Bukkit.getPlayer(d), ne);
+		Player pl = Bukkit.getPlayer(d);
+		if(pl != null && pl.isOnline()){
+			pl.sendMessage(ChatColor.DARK_RED.toString() + ChatColor.BOLD.toString() + "+ " + NumberFormat.getCurrencyInstance().format(sub));
+		}
 		
 	}
 	public static void addBal(UUID d, Double add){
@@ -62,5 +66,8 @@ public class Economy {
 	}
 	public static boolean hasEnough(UUID d, Double amt){
 		return Economy.getBalance(d) >= amt;
+	}
+	public static String remainder(UUID d, Double amt){
+		return NumberFormat.getCurrencyInstance().format(Economy.getBalance(d) - amt);
 	}
 }

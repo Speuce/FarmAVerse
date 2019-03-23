@@ -17,7 +17,7 @@ public class EmptyPlot extends Plot{
 	}
 
 	@Override
-	public void onInteract(PlayerInteractEvent e) {
+	public void onInteractOwner(PlayerInteractEvent e) {
 		this.getFarm().blankSelect(e.getClickedBlock().getChunk());
 	}
 

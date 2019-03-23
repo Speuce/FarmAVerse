@@ -2,6 +2,7 @@ package com.speuce.farmtopia.plot;
 
 import org.bukkit.Chunk;
 import org.bukkit.block.Block;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.speuce.farmtopia.Constant;
@@ -35,7 +36,11 @@ public abstract class Plot implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public abstract void onInteract(PlayerInteractEvent e);
+	public abstract void onInteractOwner(PlayerInteractEvent e);
+	
+	public void onInteractAny(PlayerInteractEvent e) {};
+	
+	public void onEntityInteract(PlayerInteractEntityEvent e) {};
 	
 	public String getSchematic(){
 		return this.schematic;

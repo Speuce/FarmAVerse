@@ -29,6 +29,7 @@ import com.speuce.farmtopia.plot.PlotBuilder;
 import com.speuce.farmtopia.plot.Plots;
 import com.speuce.farmtopia.plot.upgradeable.Pavillion;
 import com.speuce.farmtopia.plot.upgradeable.ResearchCentre;
+import com.speuce.farmtopia.plot.upgradeable.Shop;
 import com.speuce.farmtopia.plot.upgradeable.TownHall;
 import com.speuce.farmtopia.plot.upgradeable.Upgradeable;
 import com.speuce.farmtopia.resources.Resource;
@@ -264,6 +265,9 @@ public class Farm {
 		if(f instanceof ResearchCentre){
 			Tutorial.onResearchCentreBuild(owner);
 		}
+		if(f instanceof Shop){
+			Tutorial.onShopBuild(owner);
+		}
 		this.plots.set(this.getPlotSlot(c), f);
 		//BuildQueue.queue(this.getFm().getClear().def(f.getChunk().getBlock(0, Constant.baseY - 1, 0), this.getFm().getPlugin()));
 		PlotBuilder bl = new PlotBuilder(f, this.fm.getPlugin().getSchem(), c);
@@ -367,7 +371,7 @@ public class Farm {
 		}
 
 		if(nearby[2] == null){
-			System.out.println("wall3: " + pl.getName());
+			//System.out.println("wall3: " + pl.getName());
 			//BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(16, 0, 0), this.getFm().getPlugin(), 2));
 			if(nearby[4] == null){
 				//System.out.println("nearby 4 is null");
@@ -614,7 +618,16 @@ public class Farm {
 			
 			ret.addItem(add);
 		}
-
+		if(this.getPlots("Shop") < Plots.getMaxPlots(Shop.class, this.getTownHallLevel(), this.getLevel())){
+			ItemStack add = new ItemStack(Material.GOLD_INGOT, 1);
+			ItemMeta am = add.getItemMeta();
+			am.setDisplayName(ChatColor.YELLOW.toString()+ "Shop");
+			am.setLore(Arrays.asList(new String[]{ChatColor.GREEN.toString() + "Cost: " + 
+			ChatColor.DARK_GREEN.toString() + Constant.format(500D), ChatColor.DARK_PURPLE.toString() + "Sell your items!"}));
+			add.setItemMeta(am);
+			
+			ret.addItem(add);
+		}
 		
 		this.owner.openInventory(ret);
 	}
