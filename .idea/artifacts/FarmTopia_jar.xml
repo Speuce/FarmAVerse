@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="FarmTopia.jar">
+    <output-path>$USER_HOME$/Desktop/Programming/Servers/Farm 1.15.2/plugins</output-path>
+    <root id="archive" name="FarmTopia.jar">
+      <element id="module-output" name="FarmTopia" />
+    </root>
+  </artifact>
+</component>
