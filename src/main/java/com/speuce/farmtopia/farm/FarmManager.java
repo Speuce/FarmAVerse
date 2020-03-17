@@ -101,7 +101,7 @@ public class FarmManager implements Listener, CommandExecutor {
 		this.sql = sql;
 		this.pl = main;
 		// this.keep = new HashSet<Chunk>();
-		this.main = Bukkit.getWorld("blank");
+		this.main = Bukkit.getWorld("world");
 		this.loadedFarms = new HashMap<Player, Farm>();
 		this.lookup = new HashMap<Location, Farm>();
 		this.clear = schem.getSchemetic("clear");

@@ -57,10 +57,10 @@ public class ShopManager implements CommandExecutor, Listener{
 		newOffer = new ItemStack(Material.EMERALD, 1);
 		ItemMeta met2 = newOffer.getItemMeta();
 		met2.setDisplayName(ChatColor.GREEN.toString() + "Sell Item");
-		newOffer.setItemMeta(met2);		
-		
+		newOffer.setItemMeta(met2);
 		main.getCommand("shop").setExecutor(this);
-		this.makeTable();
+		//TODO enable this
+		//this.makeTable();
 
 		FarmTopia.getFarmTopia().getServer().getPluginManager().registerEvents(this, FarmTopia.getFarmTopia());
 		
