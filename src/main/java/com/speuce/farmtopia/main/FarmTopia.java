@@ -54,7 +54,7 @@ public class FarmTopia extends MainCommandListener implements Listener{
 		this.timer1.runTaskTimerAsynchronously(this, 50L, 5L);
 		this.cm = new CraftingManager(this);
 		this.shop = new ShopManager(sql, this);
-		
+		registerCommands();
 	}
 
 	/**
@@ -98,5 +98,9 @@ public class FarmTopia extends MainCommandListener implements Listener{
 
 	public FarmManager getFarmManager(){
 		return this.fm;
+	}
+
+	public SQLManager getSQL(){
+		return this.sql;
 	}
 }

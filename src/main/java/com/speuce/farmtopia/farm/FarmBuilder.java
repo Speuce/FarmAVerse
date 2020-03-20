@@ -7,6 +7,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Iterator;
+
 
 public class FarmBuilder {
 	
@@ -18,27 +20,25 @@ public class FarmBuilder {
 
 		BukkitRunnable br = new BukkitRunnable(){
 			int plot = 0;
-
+			Iterator<Chunk> chunkIterator = farm.iterator();
 			@Override
 			public void run() {
-				Chunk curr = farm.getCurrentChunk();
-				for(Entity e: curr.getEntities()){
-					if(e.getType() == EntityType.ARMOR_STAND){
-						e.remove();
+				if(chunkIterator.hasNext()){
+					Chunk curr = chunkIterator.next();
+						for(Entity e: curr.getEntities()){
+							if(e.getType() == EntityType.ARMOR_STAND){
+								e.remove();
+							}
+						}
+						PlotBuilder pb = new PlotBuilder(farm.getPlot(plot), pl.getSchem(), curr);
+						//Plot plot = farm.getPlot(plot);
+						pb.build(false);
+						plot++;
+					}else{
+						fr.onFinish(farm);
+						farm.buildAllWalls();
+						this.cancel();
 					}
-				}
-				if(plot < farm.getPlots()){
-					PlotBuilder pb = new PlotBuilder(farm.getPlot(plot), pl.getSchem(), curr);
-					//Plot plot = farm.getPlot(plot);
-					pb.build(false);
-					plot++;
-					farm.nextChunk();
-				}else{
-					fr.onFinish(farm);
-					farm.buildAllWalls();
-					this.cancel();
-				}
-
 			}
 		};
 		br.runTaskTimer(this.pl, 20L, 20L);

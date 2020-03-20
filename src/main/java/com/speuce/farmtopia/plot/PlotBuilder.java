@@ -18,12 +18,12 @@ public class PlotBuilder {
 	private Plot p;
 	private Random r;
 	public PlotBuilder(Plot p, SchemeticManager man, Chunk ch){
+		//precondition: plot p is not null.
+		assert(p != null);
 		this.man = man;
 		this.p = p;
 		this.r = new Random();
-		if(p == null){
-			throw new IllegalArgumentException("Plot cannot be null!");
-		}
+
 		p.setChunk(ch);
 		
 	}

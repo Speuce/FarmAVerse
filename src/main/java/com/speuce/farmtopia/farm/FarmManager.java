@@ -19,10 +19,8 @@ import main.java.com.speuce.farmtopia.plot.*;
 import main.java.com.speuce.farmtopia.plot.upgradeable.ResearchCentre;
 import main.java.com.speuce.farmtopia.plot.upgradeable.Upgradeable;
 import main.java.com.speuce.farmtopia.resources.Resource;
+import main.java.com.speuce.farmtopia.util.*;
 import main.java.com.speuce.farmtopia.util.Constant;
-import main.java.com.speuce.farmtopia.util.Debug;
-import main.java.com.speuce.farmtopia.util.Economy;
-import main.java.com.speuce.farmtopia.util.SC;
 import main.java.com.speuce.schemetic.RunnablePredefinedSchem;
 import main.java.com.speuce.schemetic.Schematic;
 import main.java.com.speuce.schemetic.SchemeticManager;
@@ -252,7 +250,7 @@ public class FarmManager implements Listener, CommandExecutor {
 			@Override
 			public void run() {
 				for (Farm f : loadedFarms.values()) {
-					for (Plot p : f.getAllPlots()) {
+					for (Plot p : f.getPlots()) {
 						if (p instanceof FarmPlot) {
 							continue;
 						} else {
@@ -284,7 +282,7 @@ public class FarmManager implements Listener, CommandExecutor {
 			@Override
 			public void run() {
 				for (Farm f : loadedFarms.values()) {
-					for (Plot p : f.getAllPlots()) {
+					for (Plot p : f.getPlots()) {
 						if (p instanceof FarmPlot) {
 							FarmPlot fp = (FarmPlot) p;
 							fp.updateStages(true);
@@ -357,13 +355,12 @@ public class FarmManager implements Listener, CommandExecutor {
 					if (e.getCurrentItem().getItemMeta().getDisplayName().contains("another Plot")) {
 						Player pl = (Player) e.getWhoClicked();
 						Farm f = this.loadedFarms.get(pl);
-						double cost = f.getCostt();
+						double cost = f.getUpgradeCost();
 						if (Economy.hasEnough(pl.getUniqueId(), cost)) {
 							Plot ne = new EmptyPlot(f);
-							PlotBuilder pb = new PlotBuilder(ne, this.schem, f.getCurrentChunk());
+							PlotBuilder pb = new PlotBuilder(ne, this.schem, f.addChunk());
 							pb.build(true);
 							f.buildWalls(ne, true);
-							f.nextChunk();
 							f.addPlot(ne);
 							Tutorial.onNewPlotBuild((Player) e.getWhoClicked());
 							Economy.subtractBal(pl.getUniqueId(), cost);
@@ -824,7 +821,7 @@ public class FarmManager implements Listener, CommandExecutor {
 	}
 
 	private void cleanEntities(Farm f) {
-		for (Plot p : f.getAllPlots()) {
+		for (Plot p : f.getPlots()) {
 			p.cleanup();
 		}
 	}
@@ -857,7 +854,7 @@ public class FarmManager implements Listener, CommandExecutor {
 	// 6 = WEST
 	// 7 = NORTHWEST
 	public void cleanFarm(Farm f) {
-		for (Plot p : f.getAllPlots()) {
+		for (Plot p : f.getPlots()) {
 			if (p.getChunk() != null) {
 				p.cleanup();
 				BuildQueue.queue(clear.def(p.getChunk().getBlock(0, Constant.baseY, 0), pl));
@@ -1091,7 +1088,7 @@ public class FarmManager implements Listener, CommandExecutor {
 			if (sender instanceof Player) {
 				Player pl = (Player) sender;
 				if (this.loadedFarms.containsKey(pl)) {
-					pl.openInventory(Farm.getMenu(this.loadedFarms.get(pl)));
+					pl.openInventory(PrebuiltInventories.getFarmHomeMenu(this.loadedFarms.get(pl)));
 					return true;
 				} else {
 					pl.sendMessage(ChatColor.RED
