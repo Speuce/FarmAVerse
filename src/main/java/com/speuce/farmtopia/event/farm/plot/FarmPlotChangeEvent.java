@@ -1,4 +1,4 @@
-package main.java.com.speuce.farmtopia.event.farm;
+package main.java.com.speuce.farmtopia.event.farm.plot;
 
 import main.java.com.speuce.farmtopia.event.farm.FarmEvent;
 import main.java.com.speuce.farmtopia.farm.Farm;
@@ -10,12 +10,10 @@ import org.bukkit.event.HandlerList;
  * An event called when the plot in a farm is changed.
  * @author Matt Kwiatkowski
  */
-public class FarmPlotChangeEvent extends FarmEvent {
-
-
-
+public class FarmPlotChangeEvent extends FarmPlotEvent {
+    
     /* Represent the plot types before the change and after the change, respectively */
-    private Class<? extends Plot> from, to;
+    private Plot to;
 
     /* the chunk that contains the plot being changed */
     private Chunk chunk;
@@ -27,25 +25,16 @@ public class FarmPlotChangeEvent extends FarmEvent {
      * @param to the final type of the plot
      * @param chunk the chunk containing the plot being changed.
      */
-    public FarmPlotChangeEvent(Farm farm, Class<? extends Plot> from, Class<? extends Plot> to, Chunk chunk) {
-        super(farm);
-        this.from = from;
+    public FarmPlotChangeEvent(Farm farm, Plot from, Plot to, Chunk chunk) {
+        super(farm, from);
         this.to = to;
         this.chunk = chunk;
     }
-
-
+    
     /**
-     * @return the initial type of the plot
+     * @return the final (being set to) type of the plot
      */
-    public Class<? extends Plot> getIntialPlotType() {
-        return from;
-    }
-
-    /**
-     * @return the final type of the plot
-     */
-    public Class<? extends Plot> getFinalPlotType() {
+    public Plot getFinalPlotType() {
         return to;
     }
 

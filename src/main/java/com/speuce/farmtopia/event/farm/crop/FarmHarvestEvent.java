@@ -1,5 +1,6 @@
-package main.java.com.speuce.farmtopia.event.farm;
+package main.java.com.speuce.farmtopia.event.farm.crop;
 
+import main.java.com.speuce.farmtopia.crop.CropType;
 import main.java.com.speuce.farmtopia.event.farm.FarmEvent;
 import main.java.com.speuce.farmtopia.farm.Farm;
 import main.java.com.speuce.farmtopia.plot.FarmPlot;
@@ -8,26 +9,25 @@ import org.bukkit.event.HandlerList;
 
 /**
  * Event called when a subplot inside of an {@link FarmPlot} is harvested
- * PROTOTYPE. NOT COMPLETE OR USED.
  * @author Matt Kwiatkowski
  */
-public class FarmHarvestEvent extends FarmEvent implements Cancellable {
+public class FarmHarvestEvent extends FarmCropEvent {
 
     private boolean cancelled;
 
-    public FarmHarvestEvent(Farm farm) {
-        super(farm);
+    /* the amount that the crop yield is to be multiplied */
+    private int multiplier;
+
+    public FarmHarvestEvent(Farm farm, FarmPlot plot, CropType type, int multiplier) {
+        super(farm, plot, type, false);
+        this.multiplier = multiplier;
     }
 
-
-    @Override
-    public boolean isCancelled() {
-        return cancelled;
-    }
-
-    @Override
-    public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
+    /**
+     * the amount that the crop yield is to be multiplied.
+     */
+    public int getMultiplier() {
+        return multiplier;
     }
 
     private static final HandlerList handlers = new HandlerList();
