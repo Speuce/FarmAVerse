@@ -1,5 +1,6 @@
-package main.java.com.speuce.farmtopia.event;
+package main.java.com.speuce.farmtopia.event.farm;
 
+import main.java.com.speuce.farmtopia.event.farm.FarmEvent;
 import main.java.com.speuce.farmtopia.farm.Farm;
 import main.java.com.speuce.farmtopia.plot.FarmPlot;
 import org.bukkit.event.Cancellable;
