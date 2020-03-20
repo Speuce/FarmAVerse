@@ -1,4 +1,4 @@
-package main.java.com.speuce.farmtopia.util;
+package main.java.com.speuce.farmtopia.util.chunk;
 
 import org.bukkit.generator.ChunkGenerator;
 
