@@ -154,6 +154,19 @@ public class Constant {
 		}
 	}
 
+	/**
+	 * Takes ONE of the players item in their main hand
+	 * @param p the Player to take from
+	 */
+	public static void takeOne(Player p){
+		int amt = p.getInventory().getItemInMainHand().getAmount();
+		if (amt <= 0) {
+			p.getInventory().setItemInMainHand(null);
+		} else {
+			p.getInventory().getItemInMainHand().setAmount(amt - 1);
+		}
+	}
+
 	public static void forceGive(Player p, ItemStack i){
 		if(i == null || i.equals(Constant.getOk())) {
 			return;
