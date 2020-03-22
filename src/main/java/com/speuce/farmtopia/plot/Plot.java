@@ -1,10 +1,13 @@
 package main.java.com.speuce.farmtopia.plot;
 
+import main.java.com.speuce.farmtopia.event.Events;
+import main.java.com.speuce.farmtopia.event.farm.plot.FarmPlotInteractEvent;
 import main.java.com.speuce.farmtopia.farm.Farm;
 import main.java.com.speuce.farmtopia.util.Constant;
 import main.java.com.speuce.farmtopia.util.Serializable;
 import org.bukkit.Chunk;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -37,8 +40,19 @@ public abstract class Plot implements Serializable {
 		this.name = name;
 	}
 	public abstract void onInteractOwner(PlayerInteractEvent e);
-	
-	public void onInteractAny(PlayerInteractEvent e) {};
+	public void onInteractOther(PlayerInteractEvent e){};
+
+	/**
+	 * Called when this plot is interacted on
+	 */
+	public void onInteract(PlayerInteractEvent e) {
+		Events.call(new FarmPlotInteractEvent(f, this, e));
+		if(e.getPlayer().equals(f.getOwner())){
+			onInteractOwner(e);
+		}else{
+			onInteractOther(e);
+		}
+	};
 	
 	public void onEntityInteract(PlayerInteractEntityEvent e) {};
 	

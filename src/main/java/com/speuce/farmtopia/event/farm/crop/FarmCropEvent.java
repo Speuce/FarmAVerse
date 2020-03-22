@@ -1,7 +1,7 @@
 package main.java.com.speuce.farmtopia.event.farm.crop;
 
 import main.java.com.speuce.farmtopia.crop.CropType;
-import main.java.com.speuce.farmtopia.crop.FarmSubplot;
+import main.java.com.speuce.farmtopia.plot.subplot.FarmSubPlot;
 import main.java.com.speuce.farmtopia.event.farm.FarmEvent;
 import main.java.com.speuce.farmtopia.farm.Farm;
 import main.java.com.speuce.farmtopia.plot.FarmPlot;
@@ -18,11 +18,11 @@ public abstract class FarmCropEvent extends FarmEvent implements Cancellable {
     /* the plot on which this is occuring */
     private FarmPlot plot;
     /* the subplot on which this is occuring */
-    private FarmSubplot subplot;
+    private FarmSubPlot subplot;
     /* the latest {@link Croptype} for which this event occurs */
     private CropType type;
 
-    public FarmCropEvent(Farm farm, FarmPlot plot, FarmSubplot subplot, CropType type, boolean cancelled) {
+    public FarmCropEvent(Farm farm, FarmPlot plot, FarmSubPlot subplot, CropType type, boolean cancelled) {
         super(farm);
         this.cancelled = cancelled;
         this.plot = plot;
@@ -49,7 +49,7 @@ public abstract class FarmCropEvent extends FarmEvent implements Cancellable {
     /**
      * Get the subplot on which this is occurring
      */
-    public FarmSubplot getSubplot() {
+    public FarmSubPlot getSubplot() {
         return subplot;
     }
 

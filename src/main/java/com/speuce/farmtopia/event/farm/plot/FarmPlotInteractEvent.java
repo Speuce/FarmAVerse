@@ -6,6 +6,8 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Event called when a specific Plot is interacted on
@@ -37,6 +39,16 @@ public class FarmPlotInteractEvent extends FarmPlotEvent {
      */
     public Block getClickedBlock(){
         return e.getClickedBlock();
+    }
+
+    /**
+     * Returns the item in hand represented by this event
+     *
+     * @return ItemStack the item used
+     */
+    @Nullable
+    public ItemStack getItem(){
+        return e.getItem();
     }
 
     private static final HandlerList handlers = new HandlerList();

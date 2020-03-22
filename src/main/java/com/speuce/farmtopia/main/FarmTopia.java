@@ -36,6 +36,7 @@ public class FarmTopia extends MainCommandListener implements Listener{
 //		this.getCommand("cosmetic").setExecutor(this.cosman);
 //		this.getCommand("fdebug").setExecutor(this);
 //		this.listeningfor = DebugLevel.MAJOR;
+
 		//TODO register commands in yml
 		instance = this;
 		Tutorial.setPlugin(this);
@@ -54,6 +55,9 @@ public class FarmTopia extends MainCommandListener implements Listener{
 		this.timer1.runTaskTimerAsynchronously(this, 50L, 5L);
 		this.cm = new CraftingManager(this);
 		this.shop = new ShopManager(sql, this);
+
+		this.getServer().getPluginManager().registerEvents(new DevTools(), this);
+
 		registerCommands();
 	}
 

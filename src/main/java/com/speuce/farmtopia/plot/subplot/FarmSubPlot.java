@@ -1,15 +1,28 @@
-package main.java.com.speuce.farmtopia.crop;
+package main.java.com.speuce.farmtopia.plot.subplot;
 
 import java.util.Arrays;
 
 import com.google.common.primitives.Longs;
+import main.java.com.speuce.farmtopia.crop.CropType;
 import main.java.com.speuce.farmtopia.util.Constant;
 
-public class FarmSubplot {
+/**
+ * Object representing a SubPlot of a FarmPlot which can hold
+ * a specific crop.
+ */
+public class FarmSubPlot extends SubPlot {
+	/* The CropType currently planted here */
 	private CropType currentCrop;
+
+	/* the epoch time that the subplot was last planted on */
 	private long planted;
+
+	/* The fertility of this subplot */
 	private byte fertility;
-	public FarmSubplot(CropType crop, long planted, byte fertility){
+
+
+	public FarmSubPlot(CropType crop, long planted, byte fertility){
+		super(null, 7);
 		this.currentCrop = crop;
 		this.fertility = fertility;
 		this.planted = planted;
@@ -91,16 +104,16 @@ public class FarmSubplot {
 		}
 		return ret;
 	}
-	public static FarmSubplot deserialize(int protocol, byte[] dat){
+	public static FarmSubPlot deserialize(int protocol, byte[] dat){
 		if(protocol == 2){
 			CropType c = CropType.getById(dat[0]);
 			long time = Longs.fromByteArray(Arrays.copyOfRange(dat, 1, dat.length));
-			return new FarmSubplot(c, time, (byte)0);
+			return new FarmSubPlot(c, time, (byte)0);
 		}else if(protocol == Constant.PROTOCOL_V3){
 			CropType c = CropType.getById(dat[0]);
 			byte fertility = dat[1];
 			long time = Longs.fromByteArray(Arrays.copyOfRange(dat, 2, dat.length));
-			return new FarmSubplot(c, time, fertility);
+			return new FarmSubPlot(c, time, fertility);
 		}else{
 			throw new IllegalArgumentException("Protocol Version: " + protocol + " is not Supported!");
 		}

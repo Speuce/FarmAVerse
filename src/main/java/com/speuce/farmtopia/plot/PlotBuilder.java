@@ -2,7 +2,7 @@ package main.java.com.speuce.farmtopia.plot;
 
 import java.util.Random;
 
-import main.java.com.speuce.farmtopia.crop.FarmSubplot;
+import main.java.com.speuce.farmtopia.plot.subplot.FarmSubPlot;
 import main.java.com.speuce.farmtopia.util.Constant;
 import main.java.com.speuce.schemetic.Schematic;
 import main.java.com.speuce.schemetic.SchemeticManager;
@@ -61,7 +61,7 @@ public class PlotBuilder {
 				public void run() {
 					FarmPlot fm = (FarmPlot)p;
 					for(int spot = 0; spot < 4; spot++){
-						FarmSubplot c = fm.getSubplot(spot);
+						FarmSubPlot c = fm.getSubplot(spot);
 						if(c != null){
 							Schematic cro = man.getSchemetic(c.currentSchem());
 							if(cro == null){

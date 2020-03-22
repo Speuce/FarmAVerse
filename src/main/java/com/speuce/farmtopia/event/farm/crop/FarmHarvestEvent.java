@@ -1,11 +1,9 @@
 package main.java.com.speuce.farmtopia.event.farm.crop;
 
 import main.java.com.speuce.farmtopia.crop.CropType;
-import main.java.com.speuce.farmtopia.crop.FarmSubplot;
-import main.java.com.speuce.farmtopia.event.farm.FarmEvent;
+import main.java.com.speuce.farmtopia.plot.subplot.FarmSubPlot;
 import main.java.com.speuce.farmtopia.farm.Farm;
 import main.java.com.speuce.farmtopia.plot.FarmPlot;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 
 /**
@@ -19,7 +17,7 @@ public class FarmHarvestEvent extends FarmCropEvent {
     /* the amount that the crop yield is to be multiplied */
     private int multiplier;
 
-    public FarmHarvestEvent(Farm farm, FarmPlot plot, FarmSubplot subplot, CropType type, int multiplier) {
+    public FarmHarvestEvent(Farm farm, FarmPlot plot, FarmSubPlot subplot, CropType type, int multiplier) {
         super(farm, plot, subplot, type, false);
         this.multiplier = multiplier;
     }

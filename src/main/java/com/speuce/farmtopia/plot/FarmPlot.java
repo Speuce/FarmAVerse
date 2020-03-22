@@ -1,10 +1,8 @@
 package main.java.com.speuce.farmtopia.plot;
 
-import java.util.Arrays;
-
-import com.sun.org.apache.bcel.internal.Const;
 import main.java.com.speuce.farmtopia.crop.CropType;
-import main.java.com.speuce.farmtopia.crop.FarmSubplot;
+import main.java.com.speuce.farmtopia.event.farm.plot.FarmSubPlotInteractEvent;
+import main.java.com.speuce.farmtopia.plot.subplot.FarmSubPlot;
 import main.java.com.speuce.farmtopia.event.Events;
 import main.java.com.speuce.farmtopia.event.farm.crop.FarmFertilityEvent;
 import main.java.com.speuce.farmtopia.event.farm.crop.FarmHarvestEvent;
@@ -15,74 +13,87 @@ import main.java.com.speuce.farmtopia.farm.FarmManager;
 import main.java.com.speuce.farmtopia.farm.Tutorial;
 import main.java.com.speuce.farmtopia.resources.Resource;
 import main.java.com.speuce.farmtopia.util.Constant;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 
 public class FarmPlot extends Plot {
-	private final int height = Constant.baseY;
-	private FarmSubplot[] subPlots;
-	private Block[] farmSpots;
+
+	private FarmSubPlot[] subPlots;
+	//private Block[] farmSpots;
 	private int[] stage;
 
 	public FarmPlot(Farm f) {
 		super("Farm Plot", "Farm", f);
-		this.subPlots = new FarmSubplot[] { new FarmSubplot(CropType.BARREN, 0, (byte) 0),
-				new FarmSubplot(CropType.BARREN, 0, (byte) 0), new FarmSubplot(CropType.BARREN, 0, (byte) 0),
-				new FarmSubplot(CropType.BARREN, 0, (byte) 0) };
+		this.subPlots = new FarmSubPlot[] { new FarmSubPlot(CropType.BARREN, 0, (byte) 0),
+				new FarmSubPlot(CropType.BARREN, 0, (byte) 0), new FarmSubPlot(CropType.BARREN, 0, (byte) 0),
+				new FarmSubPlot(CropType.BARREN, 0, (byte) 0) };
 		this.stage = new int[4];
 	}
 
 	@Override
 	public void setChunk(Chunk c) {
 		super.setChunk(c);
-		this.farmSpots = new Block[] { this.getFarmSpot1(), this.getFarmSpot2(), this.getFarmSpot3(),
-				this.getFarmSpot4() };
+		//Update all the anchors of the subplots
+		for(int i = 0; i < 4; i++){
+			subPlots[i].setAnchor(getSubplotAnchor(i));
+		}
 	}
 
-	private Block getFarmSpot1() {
-		return this.getChunk().getBlock(0, height, 0);
+	/**
+	 * Gets the anchor block for the given subplot
+	 * @param x the # of the subplot to find the anchor block for
+	 * @return the found {@link Location}
+	 */
+	@NotNull
+	private Location getSubplotAnchor(int x){
+		assert(x < 4);
+		assert(x >= 0);
+		Block ret = null;
+		int height = Constant.baseY;
+		switch(x){
+			case 0:
+				ret = this.getChunk().getBlock(0, height, 0);
+				break;
+			case 1:
+				ret = this.getChunk().getBlock(0, height, 9);
+				break;
+			case 2:
+				ret = this.getChunk().getBlock(9, height, 0);
+				break;
+			case 3:
+				ret = this.getChunk().getBlock(9, height, 9);
+				break;
+		}
+		return ret.getLocation();
 	}
 
-	private Block getFarmSpot2() {
-		return this.getChunk().getBlock(0, height, 9);
-	}
-
-	private Block getFarmSpot3() {
-		return this.getChunk().getBlock(9, height, 0);
-	}
-
-	private Block getFarmSpot4() {
-		return this.getChunk().getBlock(9, height, 9);
-	}
-
-	public FarmSubplot getSubplot(int index) {
+	public FarmSubPlot getSubplot(int index) {
 		return subPlots[index];
 	}
 
 
-	public void setFarmSubPlot(int index, FarmSubplot set) {
+	public void setFarmSubPlot(int index, FarmSubPlot set) {
 		this.subPlots[index] = set;
 	}
 
 	public Block getFarmSpot(int index) {
-		return this.farmSpots[index];
+		return this.subPlots[index].getAnchorBlock();
 	}
 
 	// public Crop[] getCrops(){
 	// return this.crops;
 	// }
 	public void updateStages(boolean build) {
-		if (this.farmSpots == null) {
+		if (this.subPlots[0].getAnchor() == null) {
+			//not ready for update yet. Anchor has NOT been assigned
 			return;
 		}
 		for (int x = 0; x < 4; x++) {
@@ -97,7 +108,7 @@ public class FarmPlot extends Plot {
 	 *              should be rebuild (if its ready for it)
 	 */
 	public void updateStage(int x, boolean build){
-		FarmSubplot c = subPlots[x];
+		FarmSubPlot c = subPlots[x];
 		int stg = c.getStage();
 		if (stage[x] != stg) {
 			if (build) {
@@ -108,10 +119,10 @@ public class FarmPlot extends Plot {
 	}
 
 	public void rebuild(int x) {
-		FarmSubplot c = subPlots[x];
+		FarmSubPlot c = subPlots[x];
 		// this.getFarm().getFm().buildSchem("miniclear", farmSpots[x]);
 		if (c.currentSchem().equalsIgnoreCase("barren1")) {
-			this.getFarm().getFm().buildSchemOpt(c.currentSchem(), farmSpots[x]);
+			this.getFarm().getFm().buildSchemOpt(c.currentSchem(), c.getAnchorBlock());
 			// Bukkit.broadcastMessage("Built Optimized");
 			return;
 		}
@@ -119,7 +130,7 @@ public class FarmPlot extends Plot {
 			Farm f = this.getFarm();
 			FarmManager fm = f.getFm();
 			String schem = c.currentSchem();
-			Block b = farmSpots[x];
+			Block b = subPlots[x].getAnchorBlock();
 			fm.buildSchem(schem, b);
 		} catch (NullPointerException e) {
 			Bukkit.broadcastMessage("ERROR");
@@ -133,7 +144,7 @@ public class FarmPlot extends Plot {
 	public void onShift(Location l) {
 		int fs = farmSpot(l.getBlock());
 		if (fs >= 0) {
-			FarmSubplot sb = this.subPlots[fs];
+			FarmSubPlot sb = this.subPlots[fs];
 			if (sb.hasActualPlant() && !sb.max()) {
 				sb.subtractSeconds(2);
 			}
@@ -143,11 +154,11 @@ public class FarmPlot extends Plot {
 
 	/**
 	 * Executes sequence for when a subplot is harvested
-	 * @param sb the associated {@link FarmSubplot}
+	 * @param sb the associated {@link FarmSubPlot}
 	 * @param p the Player harvesting
 	 * @param fs the # of the subplot
 	 */
-	private void harvest(FarmSubplot sb, Player p, int fs){
+	private void harvest(FarmSubPlot sb, Player p, int fs){
 		if(!sb.max()){
 			p.sendMessage(ChatColor.RED.toString() + "This Crop is not ready to harvest yet!");
 			return;
@@ -199,7 +210,7 @@ public class FarmPlot extends Plot {
 	 * @param p the Player planting.
 	 */
 	private void plant(CropType crop, int fs, Player p){
-		FarmSubplot sub = subPlots[fs];
+		FarmSubPlot sub = subPlots[fs];
 		if (crop == CropType.MAGIC) {
 			if (sub.getFertility() > 0) {
 				p.sendMessage(ChatColor.RED.toString() + "This Spot is still infused with magic!");
@@ -223,7 +234,7 @@ public class FarmPlot extends Plot {
 
 	}
 
-	private void magicDust(FarmSubplot sb, ItemStack i, Player p, int fs){
+	private void magicDust(FarmSubPlot sb, Player p, int fs){
 		if (!sb.max()) {
 			if (sb.hasActualPlant()) {
 				//execute Magic event
@@ -252,7 +263,8 @@ public class FarmPlot extends Plot {
 		int fs = farmSpot(e.getClickedBlock());
 		ItemStack i = e.getPlayer().getInventory().getItemInMainHand();
 		if (fs >= 0) {
-			FarmSubplot sb = this.subPlots[fs];
+			Events.call(new FarmSubPlotInteractEvent(getFarm(), this, e, subPlots[fs]));
+			FarmSubPlot sb = this.subPlots[fs];
 			if (!sb.hasActualPlant() && i.hasItemMeta()) {
 					Resource c = Resource.getByTitle(i.getItemMeta().getDisplayName());
 					if (c != null && c != Resource.NOTHING) {
@@ -266,32 +278,8 @@ public class FarmPlot extends Plot {
 					harvest(sb, e.getPlayer(), fs);
 				} else if (i.getType() == Material.GLOWSTONE_DUST) {
 					if (i.hasItemMeta() && i.getItemMeta().getDisplayName().equals(Resource.MAGIC_DUST.getName())) {
-						magicDust(sb, i, e.getPlayer(), fs);
+						magicDust(sb, e.getPlayer(), fs);
 					}
-					return;
-				} else if (e.getPlayer().isOp() && Resource.getByItem(e.getItem()).equals(Resource.DEV_WAND)) {
-					if (!sb.max()) {
-						boolean bl = sb.hasActualPlant();
-						// Constant.debug(bl + ":::");
-						if (bl) {
-							sb.dev();
-							Constant.playsound(e.getPlayer(), Sound.ITEM_CHORUS_FRUIT_TELEPORT, 0F);
-							this.updateStages(true);
-							return;
-						} else {
-							e.getPlayer().sendMessage(ChatColor.RED.toString() + "There's nothing to apply magic to!");
-							return;
-						}
-
-					} else {
-						e.getPlayer().sendMessage(ChatColor.RED + "This Crop is already fully grown");
-						return;
-					}
-
-				}
-				if (e.getPlayer().isOp() && e.getPlayer().isSneaking() && e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-					e.getPlayer().sendMessage(ChatColor.AQUA.toString() + "Fertility: " + ChatColor.YELLOW.toString()
-							+ this.subPlots[fs].getFertility());
 				}
 			}
 		}
@@ -331,8 +319,8 @@ public class FarmPlot extends Plot {
 		// int cb = FarmSubplot.getBytes(Constant.currentProtocol);
 		for (int i = 0; i < 4; i++) {
 			byte[] ins = this.subPlots[i].serialize();
-			for (int y = 0; y < ins.length; y++) {
-				ret[sp] = ins[y];
+			for (byte in : ins) {
+				ret[sp] = in;
 				sp++;
 			}
 		}
@@ -340,19 +328,19 @@ public class FarmPlot extends Plot {
 	}
 
 	public static int getBytes(int version) {
-		return (FarmSubplot.getBytes(version) * 4);
+		return (FarmSubPlot.getBytes(version) * 4);
 	}
 
 	public static FarmPlot deserialize(byte[] data, int version, Farm fa) {
 		if (data.length == FarmPlot.getBytes(version)) {
 			FarmPlot f = new FarmPlot(fa);
-			int crop = FarmSubplot.getBytes(version);
+			int crop = FarmSubPlot.getBytes(version);
 			int index = 0;
 			int cro = 0;
 			while (index < data.length) {
 				byte[] dat = Arrays.copyOfRange(data, index, index + crop);
 				index += crop;
-				f.setFarmSubPlot(cro, FarmSubplot.deserialize(version, dat));
+				f.setFarmSubPlot(cro, FarmSubPlot.deserialize(version, dat));
 				cro++;
 			}
 			return f;

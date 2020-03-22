@@ -666,8 +666,12 @@ public class FarmManager implements Listener, CommandExecutor {
 					Constant.baseY, this.nearest500(e.getClickedBlock().getZ() - 16));
 			if (this.lookup.containsKey(pl)) {
 				Farm f = this.lookup.get(pl);
+				Plot plot = f.getPlot(e.getClickedBlock().getChunk());
+				if(plot != null){
+
+				}
 				if (f.getOwner() == e.getPlayer()) {
-					Plot plot = f.getPlot(e.getClickedBlock().getChunk());
+
 					if (plot != null) {
 						plot.onInteractOwner(e);
 					}
