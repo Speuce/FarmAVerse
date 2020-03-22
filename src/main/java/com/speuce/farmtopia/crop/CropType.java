@@ -7,6 +7,7 @@ import main.java.com.speuce.farmtopia.resources.Resource;
 import main.java.com.speuce.farmtopia.util.RandomChance;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 
 public enum CropType {
@@ -154,6 +155,8 @@ public enum CropType {
 	public static CropType getById(byte id){
 		return CropType.values()[id];
 	}
+
+	@NotNull
 	public static CropType getBySeed(Resource seed){
 		if(seed != Resource.NOTHING && seed != null){
 			for(CropType t: CropType.values()){
@@ -164,6 +167,13 @@ public enum CropType {
 		}
 		return NULLIO;
 	}
-	
+
+	/**
+	 * Checks to see if the given Croptype is a plantable crop
+	 * @return true if it is, false otherwise.
+	 */
+	public static boolean verifyCrop(CropType r){
+		return r != NULLIO && r != BARREN;
+	}
 	
 }
