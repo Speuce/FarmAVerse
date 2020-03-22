@@ -1,6 +1,7 @@
 package main.java.com.speuce.farmtopia.event.farm.crop;
 
 import main.java.com.speuce.farmtopia.crop.CropType;
+import main.java.com.speuce.farmtopia.crop.FarmSubplot;
 import main.java.com.speuce.farmtopia.event.farm.FarmEvent;
 import main.java.com.speuce.farmtopia.farm.Farm;
 import main.java.com.speuce.farmtopia.plot.FarmPlot;
@@ -19,8 +20,8 @@ public class FarmPlantEvent extends FarmCropEvent {
      */
     private CropType newtype;
 
-    public FarmPlantEvent(Farm farm, FarmPlot plot, CropType currtype, CropType newtype) {
-        super(farm, plot, currtype, false);
+    public FarmPlantEvent(Farm farm, FarmPlot plot, FarmSubplot subplot, CropType currtype, CropType newtype) {
+        super(farm, plot, subplot, currtype, false);
         this.newtype = newtype;
     }
 
