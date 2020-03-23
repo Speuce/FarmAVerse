@@ -335,8 +335,8 @@ public class FarmManager implements Listener, CommandExecutor {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
 		// Bukkit.broadcastMessage("clicked");
-		if (e.getClickedInventory() != null && e.getClickedInventory().getName() != null) {
-			if (e.getClickedInventory().getName().contains("Harvested")) {
+		if (e.getClickedInventory() != null) {
+			if (e.getView().getTitle().contains("Harvested")) {
 				if (e.getCurrentItem() == null) {
 					return;
 				}
@@ -348,7 +348,7 @@ public class FarmManager implements Listener, CommandExecutor {
 					e.getWhoClicked().closeInventory();
 					return;
 				}
-			} else if (e.getClickedInventory().getName()
+			} else if (e.getView().getTitle()
 					.equalsIgnoreCase(ChatColor.DARK_PURPLE.toString() + "Farm Menu")) {
 				e.setCancelled(true);
 				if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta()) {
@@ -376,7 +376,7 @@ public class FarmManager implements Listener, CommandExecutor {
 						Bukkit.dispatchCommand(pl, "j");
 					}
 				}
-			} else if (e.getClickedInventory().getName().startsWith("Upgrade")) {
+			} else if (e.getView().getTitle().startsWith("Upgrade")) {
 				e.setCancelled(true);
 				if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta()) {
 					if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Cancel")) {
@@ -407,7 +407,7 @@ public class FarmManager implements Listener, CommandExecutor {
 						}
 					}
 				}
-			} else if (e.getClickedInventory().getName().equals(Constant.setPlotName)) {
+			} else if (e.getView().getTitle().equals(Constant.setPlotName)) {
 				e.setCancelled(true);
 				if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta()) {
 					Double cost = -1D;
@@ -449,90 +449,90 @@ public class FarmManager implements Listener, CommandExecutor {
 						}
 					}
 				}
-			} else if (e.getView().getTopInventory() != null
-					&& e.getView().getTopInventory().getName().equalsIgnoreCase(Constant.seedExtractorName)
-					&& e.isShiftClick()) {
-				e.setCancelled(true);
-				return;
-			} else if (e.getClickedInventory().getName().equals(Constant.seedExtractorName)) {
-				// Bukkit.broadcastMessage("cli");
-				if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
-					// Bukkit.broadcastMessage("current item isn't null");
-					if (e.getCurrentItem().getType() == Material.GOLDEN_SHOVEL) {
-						e.setCancelled(true);
-					} else if (e.getSlot() == 1) {
-						// STOP
-						e.setCancelled(true);
-					} else if (e.getSlot() == 7) {
-						if (e.getCursor() == null || e.getCursor().getType() == Material.AIR) {
-							// Bukkit.broadcastMessage("where it should be
-							// going.");
-							e.setCancelled(false);
-							Plot pl = this.loadedFarms.get((Player) e.getWhoClicked())
-									.getFirstPlot(ResearchCentre.class);
-							if (pl != null && pl instanceof ResearchCentre) {
-								ResearchCentre rs = (ResearchCentre) pl;
-								rs.takeExtractProduct();
-								// Bukkit.broadcastMessage("take");
+			} else {
+				if (e.getView().getTitle().equalsIgnoreCase(Constant.seedExtractorName) && e.isShiftClick()) {
+					e.setCancelled(true);
+					return;
+				} else if (e.getView().getTitle().equals(Constant.seedExtractorName)) {
+					// Bukkit.broadcastMessage("cli");
+					if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
+						// Bukkit.broadcastMessage("current item isn't null");
+						if (e.getCurrentItem().getType() == Material.GOLDEN_SHOVEL) {
+							e.setCancelled(true);
+						} else if (e.getSlot() == 1) {
+							// STOP
+							e.setCancelled(true);
+						} else if (e.getSlot() == 7) {
+							if (e.getCursor() == null || e.getCursor().getType() == Material.AIR) {
+								// Bukkit.broadcastMessage("where it should be
+								// going.");
+								e.setCancelled(false);
+								Plot pl = this.loadedFarms.get((Player) e.getWhoClicked())
+										.getFirstPlot(ResearchCentre.class);
+								if (pl != null && pl instanceof ResearchCentre) {
+									ResearchCentre rs = (ResearchCentre) pl;
+									rs.takeExtractProduct();
+									// Bukkit.broadcastMessage("take");
+								}
+							} else {
+								e.setCancelled(true);
 							}
 						} else {
 							e.setCancelled(true);
 						}
+
 					} else {
-						e.setCancelled(true);
-					}
+						if (e.getSlot() != 1) {
+							e.setCancelled(true);
+						}
+						// else{
+						// if(e.getCursor() != null && e.getCursor().getType() !=
+						// Material.AIR){
+						// //START
+						// Resource r = Resource.getByItem(e.getCursor());
+						// if(r != null && r != Resource.NOTHING){
+						// //REAL start
+						// //Bukkit.broadcastMessage("strt");
+						// Farm farm =
+						// this.loadedFarms.get((Player)e.getWhoClicked());
+						// Plot pl = farm.getFirstPlot(ResearchCentre.class);
+						// if(pl != null && pl instanceof ResearchCentre){
+						// //Bukkit.broadcastMessage("testexc");
+						// if(Constant.canExtract(r)){
+						// //Bukkit.broadcastMessage("can extract");
+						// //TODO take seeds
+						//
+						// ResearchCentre rs = (ResearchCentre) pl;
+						//
+						// e.getWhoClicked().sendMessage(ChatColor.GREEN.toString()
+						// + "Extraction Started.");
+						// e.setCancelled(true);
+						// if(e.getCursor().getAmount() == 1){
+						// e.setCursor(null);
+						// }else{
+						// ItemStack s = e.getCursor();
+						// s.setAmount(s.getAmount()-1);
+						// e.setCursor(null);
+						// Constant.forceGive((Player)e.getWhoClicked(), s);
+						// }
+						// rs.startExtract(r);
+						// ((Player)e.getWhoClicked()).updateInventory();
+						// rs.sendSeedInventory((Player)e.getWhoClicked());
+						// return;
+						// }else{
+						// e.getWhoClicked().sendMessage(ChatColor.RED.toString() +
+						// "That Item Cannot Be Extracted!");
+						// }
+						//
+						// }
+						// }
+						// }
+						// //Bukkit.broadcastMessage("canc");
+						// e.setCancelled(true);
+						// ((Player)e.getWhoClicked()).updateInventory();
+						// }
 
-				} else {
-					if (e.getSlot() != 1) {
-						e.setCancelled(true);
 					}
-					// else{
-					// if(e.getCursor() != null && e.getCursor().getType() !=
-					// Material.AIR){
-					// //START
-					// Resource r = Resource.getByItem(e.getCursor());
-					// if(r != null && r != Resource.NOTHING){
-					// //REAL start
-					// //Bukkit.broadcastMessage("strt");
-					// Farm farm =
-					// this.loadedFarms.get((Player)e.getWhoClicked());
-					// Plot pl = farm.getFirstPlot(ResearchCentre.class);
-					// if(pl != null && pl instanceof ResearchCentre){
-					// //Bukkit.broadcastMessage("testexc");
-					// if(Constant.canExtract(r)){
-					// //Bukkit.broadcastMessage("can extract");
-					// //TODO take seeds
-					//
-					// ResearchCentre rs = (ResearchCentre) pl;
-					//
-					// e.getWhoClicked().sendMessage(ChatColor.GREEN.toString()
-					// + "Extraction Started.");
-					// e.setCancelled(true);
-					// if(e.getCursor().getAmount() == 1){
-					// e.setCursor(null);
-					// }else{
-					// ItemStack s = e.getCursor();
-					// s.setAmount(s.getAmount()-1);
-					// e.setCursor(null);
-					// Constant.forceGive((Player)e.getWhoClicked(), s);
-					// }
-					// rs.startExtract(r);
-					// ((Player)e.getWhoClicked()).updateInventory();
-					// rs.sendSeedInventory((Player)e.getWhoClicked());
-					// return;
-					// }else{
-					// e.getWhoClicked().sendMessage(ChatColor.RED.toString() +
-					// "That Item Cannot Be Extracted!");
-					// }
-					//
-					// }
-					// }
-					// }
-					// //Bukkit.broadcastMessage("canc");
-					// e.setCancelled(true);
-					// ((Player)e.getWhoClicked()).updateInventory();
-					// }
-
 				}
 			}
 		}

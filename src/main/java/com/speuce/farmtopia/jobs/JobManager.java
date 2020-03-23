@@ -202,7 +202,7 @@ public class JobManager implements CommandExecutor, Listener{
 	}
 	@EventHandler
 	public void onClick(InventoryClickEvent e){
-		if(e.getClickedInventory() != null && e.getClickedInventory().getName().equals(Constant.jobInvName)){
+		if(e.getClickedInventory() != null && e.getView().getTitle().equals(Constant.jobInvName)){
 			e.setCancelled(true);
 			if( e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR){
 				return;

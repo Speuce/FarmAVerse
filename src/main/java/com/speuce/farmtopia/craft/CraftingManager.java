@@ -63,15 +63,15 @@ public class CraftingManager implements Listener, CommandExecutor{
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onClick(InventoryClickEvent e){
-		if(e.getView().getTopInventory() != null && e.getView().getTopInventory().getName().startsWith("crft")){
+		if(e.getView().getTitle().startsWith("crft")){
 			if(e.isShiftClick()){
-					if(!e.getClickedInventory().getName().startsWith("crft")){
+					if(!e.getView().getTitle().startsWith("crft")){
 						e.setCancelled(true);
 					}else{ 
 						if(e.getSlot() % 9 == 0){
 							e.setCancelled(true);
 						}else{
-							Crafter c = this.getCrafter(e.getView().getTopInventory().getName());
+							Crafter c = this.getCrafter(e.getView().getTitle());
 							if(c != null){
 								if(e.getSlot() == c.getOutput() && this.currentRecipes.containsKey(e.getWhoClicked().getUniqueId()) && this.currentRecipes.get(e.getWhoClicked().getUniqueId()) != null){
 									Recipe r = this.currentRecipes.get(e.getWhoClicked().getUniqueId());
@@ -90,8 +90,8 @@ public class CraftingManager implements Listener, CommandExecutor{
 						
 						}
 					}
-			}else if(e.getClickedInventory() != null && e.getClickedInventory().getName().startsWith("crft")){
-				Crafter c = this.getCrafter(e.getClickedInventory().getName());
+			}else if(e.getClickedInventory() != null && e.getView().getTitle().startsWith("crft")){
+				Crafter c = this.getCrafter(e.getView().getTitle());
 				if(c != null){
 					if(!c.getValidSlots().contains(e.getSlot())){
 						if(e.getSlot() == c.getOutput()){
@@ -135,7 +135,7 @@ public class CraftingManager implements Listener, CommandExecutor{
 						this.checkRecipes(e.getClickedInventory(), c, e.getWhoClicked().getUniqueId());
 					}
 				}else{
-					Bukkit.broadcastMessage(ChatColor.RED.toString() + "Crafter: " + e.getClickedInventory().getName() + " is not reconized!");
+					Bukkit.broadcastMessage(ChatColor.RED.toString() + "Crafter: " + e.getView().getTitle() + " is not reconized!");
 					return;
 				}
 
@@ -321,8 +321,8 @@ public class CraftingManager implements Listener, CommandExecutor{
 	}
 	@EventHandler
 	public void onDrag(InventoryDragEvent e){
-		if(e.getInventory().getName().contains("crft")){
-			Crafter c = this.getCrafter(e.getInventory().getName());
+		if(e.getView().getTitle().contains("crft")){
+			Crafter c = this.getCrafter(e.getView().getTitle());
 			if(c != null){
 				for(int slot: e.getInventorySlots()){
 					if(!c.getValidSlots().contains(slot)){
@@ -334,11 +334,11 @@ public class CraftingManager implements Listener, CommandExecutor{
 					}
 				}
 			}else{
-				Bukkit.broadcastMessage(ChatColor.RED.toString() + "Crafter: " + e.getInventory().getName() + " is not reconized!");
+				Bukkit.broadcastMessage(ChatColor.RED.toString() + "Crafter: " + e.getView().getTitle() + " is not reconized!");
 				return;
 			}
 
-		}else if(e.getInventory().getName().equals(Constant.seedExtractorName)){
+		}else if(e.getView().getTitle().equals(Constant.seedExtractorName)){
 			e.setCancelled(true);
 		}
 	}

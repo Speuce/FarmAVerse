@@ -93,18 +93,15 @@ public class ShopManager implements CommandExecutor, Listener{
 	}
 	@EventHandler
 	public void onClose(InventoryCloseEvent e) {
-		if(e.getInventory().getName().equals(putItem)) {
+		if(e.getView().getTitle().equals(putItem)) {
 			checkOff((Player)e.getPlayer(), e.getInventory());
 		}
-		if(this.opened.containsKey(e.getPlayer())) {
-			this.opened.remove(e.getPlayer());
-		}
+		Player p = (Player) e.getPlayer();
+		this.opened.remove(p);
 	}
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
-		if(this.opened.containsKey(e.getPlayer())) {
-			this.opened.remove(e.getPlayer());
-		}
+		this.opened.remove(e.getPlayer());
 	}
 	private void checkOff(Player p, Inventory i) {
 		short amt = 0;
@@ -166,7 +163,7 @@ public class ShopManager implements CommandExecutor, Listener{
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
 		if(e.getClickedInventory() != null && e.getClickedInventory().equals(e.getView().getTopInventory())
-				&& e.getClickedInventory().getName().equals(putItem)) {
+				&& e.getView().getTitle().equals(putItem)) {
 			if(e.getCurrentItem().equals(Constant.getOk())) {
 				checkOff((Player)e.getWhoClicked(), e.getClickedInventory());
 				e.setCancelled(true);
@@ -283,9 +280,8 @@ public class ShopManager implements CommandExecutor, Listener{
 	}
 	@EventHandler
 	public void onClose(InventoryClickEvent e) {
-		if(opened.containsKey((Player)e.getInventory())) {
-			opened.remove((Player)e.getInventory());
-		}
+		Player p = (Player)e.getWhoClicked();
+		opened.remove(p);
 	}
 	private void makeTable(){
 		BukkitRunnable br = new BukkitRunnable(){
