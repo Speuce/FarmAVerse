@@ -3,6 +3,7 @@ package main.java.com.speuce.farmtopia.farm;
 import main.java.com.speuce.farmtopia.util.chunk.ChunkUtil;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 
@@ -28,6 +29,8 @@ public class ChunkCollection implements Iterable<Chunk> {
         this.baseLocation = baseLocation;
         this.size = size;
     }
+
+
 
     /**
      * Get the location that this chunk collection is based from.
@@ -68,53 +71,57 @@ public class ChunkCollection implements Iterable<Chunk> {
         return c;
     }
 
+
+
     /**
      * Returns the iterator for this chunk collection.
      * @return
      */
+    @NotNull
     @Override
     public Iterator<Chunk> iterator() {
         return new Iterator<Chunk>() {
-
-            private int iter = 0, count = 0;
-            private Chunk curr = baseLocation.getChunk();
-            //the number of times next() has been called.
-            private int iterations = 0;
+            //the current n-value
+            private int n = 0;
+            private Chunk base = baseLocation.getChunk();
+            
 
             @Override
             public boolean hasNext() {
-                return iterations < getSize();
+                return n < getSize();
             }
 
             @Override
             public Chunk next() {
-                //TODO clean this up.
-                if(count <= 0){
-                    iter++;
-                    if(iter % 2 == 0){
-                        curr = ChunkUtil.getNearbyNS(curr, false);
-                    }else{
-                        curr = ChunkUtil.getNearbyWE(curr, false);
-                    }
-                    count = iter*2;
-                }else{
-                    if(count > iter){
-                        if(iter % 2 == 0){
-                            curr = ChunkUtil.getNearbyWE(curr, false);
-                        }else{
-                            curr = ChunkUtil.getNearbyNS(curr, false);
-                        }
-                    }else{
-                        if(iter % 2 == 0){
-                            curr = ChunkUtil.getNearbyNS(curr, true);
-                        }else{
-                            curr = ChunkUtil.getNearbyWE(curr, true);
-                        }
-                    }
-                    count--;
-                }
-                iterations++;
-                return curr;
+                n++;
+                return ChunkUtil.getNthChunk(n, base);
+
+//                if(count <= 0){
+//                    iter++;
+//                    if(iter % 2 == 0){
+//                        curr = ChunkUtil.getNearbyNS(curr, false);
+//                    }else{
+//                        curr = ChunkUtil.getNearbyWE(curr, false);
+//                    }
+//                    count = iter*2;
+//                }else{
+//                    if(count > iter){
+//                        if(iter % 2 == 0){
+//                            curr = ChunkUtil.getNearbyWE(curr, false);
+//                        }else{
+//                            curr = ChunkUtil.getNearbyNS(curr, false);
+//                        }
+//                    }else{
+//                        if(iter % 2 == 0){
+//                            curr = ChunkUtil.getNearbyNS(curr, true);
+//                        }else{
+//                            curr = ChunkUtil.getNearbyWE(curr, true);
+//                        }
+//                    }
+//                    count--;
+//                }
+//                iterations++;
+//                return curr;
             }
         };
     }

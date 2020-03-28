@@ -2,6 +2,8 @@ package main.java.com.speuce.farmtopia.farm.plotcollections;
 
 import main.java.com.speuce.farmtopia.farm.ChunkCollection;
 import main.java.com.speuce.farmtopia.plot.Plot;
+import main.java.com.speuce.farmtopia.util.chunk.ChunkUtil;
+import main.java.com.speuce.farmtopia.util.chunk.Direction;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 
@@ -94,20 +96,15 @@ public abstract class PlotCollection extends ChunkCollection {
     // 6 = WEST
     // 7 = NORTHWEST
     public Plot[] getNearbyPlots(Plot pl){
-        Chunk c = pl.getChunk();
+        assert(pl != null);
+        Chunk[] c = ChunkUtil.getNearbyChunks(pl.getChunk());
         Plot[] ret = new Plot[8];
-        ret[0]= getPlot(c.getWorld().getChunkAt(c.getX(), c.getZ()-1));
-        ret[1]= getPlot( c.getWorld().getChunkAt(c.getX()+1, c.getZ()-1));
-        ret[2]= getPlot( c.getWorld().getChunkAt(c.getX()+1, c.getZ()));
-        ret[3]= getPlot(c.getWorld().getChunkAt(c.getX()+1, c.getZ()+1));
-        ret[4]= getPlot(c.getWorld().getChunkAt(c.getX(), c.getZ()+1));
-        ret[5]= getPlot(c.getWorld().getChunkAt(c.getX()-1, c.getZ()+1));
-        ret[6]= getPlot(c.getWorld().getChunkAt(c.getX()-1, c.getZ()));
-        ret[7]= getPlot(c.getWorld().getChunkAt(c.getX()-1, c.getZ()-1));
+        for(int i = 0; i < 8; i++){
+            ret[i] = getPlot(c[i]);
+        }
         return ret;
     }
 
-    @Deprecated
     public Plot getPlot(Chunk c){
         for(Plot p: plots){
             if(p.getChunk().getX() == c.getX() && p.getChunk().getZ() == c.getZ()){
