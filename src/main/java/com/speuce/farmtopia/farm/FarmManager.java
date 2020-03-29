@@ -114,7 +114,12 @@ public class FarmManager implements Listener, CommandExecutor {
 
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
-		this.teleportTo(e.getEntity(), getLoadedFarms().get(e.getEntity()));
+		if(farmLoaded(e.getEntity())){
+			this.teleportTo(e.getEntity(), getLoadedFarms().get(e.getEntity()));
+		}else{
+			e.getEntity().teleport(getMainWorld().getSpawnLocation());
+		}
+
 	}
 
 	/**
@@ -308,5 +313,12 @@ public class FarmManager implements Listener, CommandExecutor {
 
 	public FarmTopia getPlugin() {
 		return this.pl;
+	}
+
+	/**
+	 * Checks if the given player's farm is loaded yet
+	 */
+	public boolean farmLoaded(Player p){
+		return loadedFarms.containsKey(p);
 	}
 }

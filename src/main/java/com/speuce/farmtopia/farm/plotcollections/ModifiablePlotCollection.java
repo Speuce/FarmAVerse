@@ -10,6 +10,7 @@ import main.java.com.speuce.farmtopia.plot.upgradeable.Shop;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a Plot collection that can be owned, as well as expanded
@@ -18,7 +19,7 @@ import org.bukkit.entity.Player;
  */
 public class ModifiablePlotCollection extends OwnablePlotCollection {
 
-    public ModifiablePlotCollection(Location baseLocation, int size, Player owner, int lvl, byte progress) {
+    public ModifiablePlotCollection(@Nullable Location baseLocation, int size, Player owner, int lvl, byte progress) {
         super(baseLocation, size, owner, lvl, progress);
     }
 

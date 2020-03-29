@@ -5,6 +5,7 @@ import org.bukkit.Chunk;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
@@ -26,8 +27,10 @@ public class ChunkCollection implements Iterable<Chunk> {
     private int size;
 
 
-    public ChunkCollection(Location baseLoc, int size) {
-        this.baseChunk = baseLoc.getChunk();
+    public ChunkCollection(@Nullable  Location baseLoc, int size) {
+        if(baseLoc != null){
+            this.baseChunk = baseLoc.getChunk();
+        }
         this.size = size;
     }
 
