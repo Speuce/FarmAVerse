@@ -22,10 +22,15 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 
 public class Constant {
+
+	/*** MENU NAMES ***/
+	public static final String FARM_MENU_NAME = ChatColor.DARK_PURPLE.toString() + "Farm Menu";
+	public static final String SCOREBOARD_NAME = ChatColor.DARK_PURPLE.toString() + "Farm";
+	public static final String SET_PLOT_NAME = ChatColor.DARK_PURPLE.toString() + "Select Plot";
+
 	public static final int baseY = 80;
 	public static final int currentProtocol = 3;
-	public static final String scoreboardName = ChatColor.DARK_PURPLE.toString() + "Farm";
-	public static final String setPlotName = ChatColor.DARK_PURPLE.toString() + "Select Plot";
+
 	public static final String seedExtractorName = "Seedex";
 	public static final int stairVals = 8;
 	public static final String jobInvName = "Jobs";

@@ -10,6 +10,8 @@ import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * Handles Dev-related features
@@ -44,6 +46,22 @@ public class DevTools implements Listener {
              }
         }
 
+    }
+
+    @EventHandler
+    public void onSneak(PlayerToggleSneakEvent e) {
+        if (e.getPlayer().isOp() && e.getPlayer().isSneaking()) {
+            ItemStack s = e.getPlayer().getInventory().getItemInMainHand();
+            if (Resource.getByItem(s).equals(Resource.DEV_WAND)) {
+                if (Constant.hasDebug(e.getPlayer())) {
+                    Constant.removeDebug(e.getPlayer());
+                    e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE.toString() + "Debug Text Disabled.");
+                } else {
+                    Constant.addDebug(e.getPlayer());
+                    e.getPlayer().sendMessage(ChatColor.GREEN.toString() + "Debug Text Enabled.");
+                }
+            }
+        }
     }
 
 }

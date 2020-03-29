@@ -1,6 +1,6 @@
 package main.java.com.speuce.farmtopia.main;
 
-import main.java.com.speuce.farmtopia.commands.Item;
+import main.java.com.speuce.farmtopia.commands.ItemCommand;
 import main.java.com.speuce.farmtopia.craft.CraftingManager;
 import main.java.com.speuce.farmtopia.farm.FarmManager;
 import main.java.com.speuce.farmtopia.farm.Tutorial;
@@ -44,7 +44,7 @@ public class FarmTopia extends MainCommandListener implements Listener{
 		Economy.setPlugin(this);
 		this.schem = new SchemeticManager(this, 100);
 		this.jm = new JobManager(this);
-		this.fm = new FarmManager(this, sql, this.jm);
+		this.fm = new FarmManager(this, sql);
 		chunk = new ChunkGenerator(){
 			
 		};
@@ -65,7 +65,7 @@ public class FarmTopia extends MainCommandListener implements Listener{
 	 * Safely registers the command assosciated with the main class.
 	 */
 	private void registerCommands(){
-		safeCommandRegister("item", new Item());
+		safeCommandRegister("item", new ItemCommand());
 		safeCommandRegister("balance", this);
 		safeCommandRegister("eco", this);
 		safeCommandRegister("debug", this);
@@ -103,6 +103,8 @@ public class FarmTopia extends MainCommandListener implements Listener{
 	public FarmManager getFarmManager(){
 		return this.fm;
 	}
+
+	public JobManager getJobManager(){return this.jm;}
 
 	public SQLManager getSQL(){
 		return this.sql;

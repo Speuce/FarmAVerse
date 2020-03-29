@@ -23,17 +23,29 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class Farm extends ModifiablePlotCollection {
 
 	private FarmManager fm;
 	private TownHall hall;
 	private Chunk currentSelected = null;
-	public Farm(Location base, Player p, FarmManager fm, int lvl, byte progress){
+	public Farm(@Nullable Location base, Player p, FarmManager fm, int lvl, byte progress){
 		super(base, 1, p, lvl, progress);
 		this.fm = fm;
+		if(base != null){
+			assert(base.getWorld() != null);
+			base.getWorld().getPopulators().clear();
+		}
+	}
+
+	@Override
+	public void setBaseChunk(@NotNull Chunk base){
+		super.setBaseChunk(base);
 		base.getWorld().getPopulators().clear();
 	}
+
 	public void buildAllWalls(){
 		System.out.println("building walls..");
 		for(Plot pl: getPlots()){
@@ -100,24 +112,21 @@ public class Farm extends ModifiablePlotCollection {
 		if(nearby[6] == null){
 			if(nearby[0] == null){
 				//assume noone in NW
-				BuildQueue.queue(edge.def(pl.getBaseLocation().getRelative(-7, 0, -7),
-						this.getFm().getPlugin(), 0));
+				BuildQueue.queue(edge.def(pl.getBaseLocation().getRelative(-7, 0, -7), 0));
 				if(nearby[5] == null){
-					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(-7, 0, 0), this.getFm().getPlugin(), 0));
+					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(-7, 0, 0), 0));
 				}
 			}else{
 				if(nearby[7] == null){
-					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(-7, 0, 0), this.getFm().getPlugin(), 0));
+					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(-7, 0, 0), 0));
 				}else{
-					BuildQueue.queue(wrap1.def(pl.getBaseLocation().getRelative(-16, 0, 0), 
-							this.getFm().getPlugin(), 0));
+					BuildQueue.queue(wrap1.def(pl.getBaseLocation().getRelative(-16, 0, 0),  0));
 					//WRAPPED EDGE
 				}
 			}
 		}else{
 			if(nearby[0] == null && nearby[7] != null){
-				BuildQueue.queue(wrap1.def(pl.getBaseLocation().getRelative(0, 0, -16), 
-						this.getFm().getPlugin(), 2));
+				BuildQueue.queue(wrap1.def(pl.getBaseLocation().getRelative(0, 0, -16), 2));
 				//WRAPPED EDGE 2
 			}
 		}
@@ -125,23 +134,22 @@ public class Farm extends ModifiablePlotCollection {
 		if(nearby[0] == null){
 			//System.out.println("wall2");
 			if(nearby[2] == null){
-				BuildQueue.queue(edge2.def(pl.getBaseLocation().getRelative(16, 0, -7),
-						this.getFm().getPlugin(), 2));
+				BuildQueue.queue(edge2.def(pl.getBaseLocation().getRelative(16, 0, -7), 2));
 				if(nearby[7] == null){
-					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(0, 0, -7), this.getFm().getPlugin(), 1));
+					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(0, 0, -7), 1));
 				}
 			}else{
 				if(nearby[1] == null){
-					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(0, 0, -7), this.getFm().getPlugin(), 1));
+					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(0, 0, -7), 1));
 				}else{
-					BuildQueue.queue(wrap2.def(pl.getBaseLocation().getRelative(0, 0, -16), this.getFm().getPlugin(), 0));
+					BuildQueue.queue(wrap2.def(pl.getBaseLocation().getRelative(0, 0, -16),0));
 					//WRAPPED EDGE
 				}
 			}
 		}else{
 			if(nearby[2] == null && nearby[1] != null){
 				//WRAPPED EDGE 2
-				BuildQueue.queue(wrap2.def(pl.getBaseLocation().getRelative(16, 0, 0), this.getFm().getPlugin(), 2));
+				BuildQueue.queue(wrap2.def(pl.getBaseLocation().getRelative(16, 0, 0),  2));
 			}
 		}
 
@@ -150,11 +158,10 @@ public class Farm extends ModifiablePlotCollection {
 			//BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(16, 0, 0), this.getFm().getPlugin(), 2));
 			if(nearby[4] == null){
 				//System.out.println("nearby 4 is null");
-				BuildQueue.queue(edge.def(pl.getBaseLocation().getRelative(16, 0, 16),
-						this.getFm().getPlugin(), 2));
+				BuildQueue.queue(edge.def(pl.getBaseLocation().getRelative(16, 0, 16),  2));
 				if(nearby[1] == null){
 				//	System.out.println("nearby 1 is null");
-					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(16, 0, 0), this.getFm().getPlugin(), 2));
+					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(16, 0, 0), 2));
 				}
 			}else{
 				//System.out.println("nearby 4 isn't null");
@@ -162,10 +169,9 @@ public class Farm extends ModifiablePlotCollection {
 					//System.out.println("nearby 3 is null");
 //					BuildQueue.queue(edge.def(pl.getBaseLocation().getRelative(16, 0, 16),
 //							this.getFm().getPlugin(), 2));
-					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(16, 0, 0), this.getFm().getPlugin(), 2));
+					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(16, 0, 0), 2));
 				}else if(all){
-					BuildQueue.queue(wrap1.def(pl.getBaseLocation().getRelative(16, 0, 0), 
-							this.getFm().getPlugin(), 2));
+					BuildQueue.queue(wrap1.def(pl.getBaseLocation().getRelative(16, 0, 0),2));
 				}
 			}
 //			if(nearby[3] == null && nearby[4] == null){
@@ -175,26 +181,23 @@ public class Farm extends ModifiablePlotCollection {
 //			}
 		}else if(all){
 			if(nearby[4]==null && nearby[3] != null){
-				BuildQueue.queue(wrap1.def(pl.getBaseLocation().getRelative(0, 0, 16), 
-						this.getFm().getPlugin(), 0));
+				BuildQueue.queue(wrap1.def(pl.getBaseLocation().getRelative(0, 0, 16), 0));
 			}
 		}
 
 		if(nearby[4] == null){
 			//System.out.println("wall4");
 			if(nearby[6] == null){
-				BuildQueue.queue(edge2.def(pl.getBaseLocation().getRelative(-7, 0, 16),
-						this.getFm().getPlugin(), 0));
+				BuildQueue.queue(edge2.def(pl.getBaseLocation().getRelative(-7, 0, 16), 0));
 				if(nearby[3]==null){
-					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(0, 0, 16), this.getFm().getPlugin(), 3));
+					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(0, 0, 16), 3));
 				}
 			
 			}else{
 				if(nearby[5] == null){
-					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(0, 0, 16), this.getFm().getPlugin(), 3));
+					BuildQueue.queue(sc.def(pl.getBaseLocation().getRelative(0, 0, 16), 3));
 				}else if(all){
-					BuildQueue.queue(wrap1.def(pl.getBaseLocation().getRelative(0, 0, 1), 
-							this.getFm().getPlugin(), 0));
+					BuildQueue.queue(wrap1.def(pl.getBaseLocation().getRelative(0, 0, 1), 0));
 					//WRAPPED EDGE DONOT
 				}
 			}
@@ -205,13 +208,12 @@ public class Farm extends ModifiablePlotCollection {
 //			}
 		}else if(all){
 			if(nearby[6] == null && nearby[5] != null){
-				BuildQueue.queue(wrap2.def(pl.getBaseLocation().getRelative(-16, 0, 0), 
-						this.getFm().getPlugin(), 0));
+				BuildQueue.queue(wrap2.def(pl.getBaseLocation().getRelative(-16, 0, 0), 0));
 			}
 		}
 
 	}
-	public static Farm deserialize(byte[] data, Location base, Player p, FarmManager fm){
+	public static Farm deserialize(byte[] data,@Nullable Location base, Player p, FarmManager fm){
 		int protocol = data[0];
 		if(protocol == 1){
 			int index = 1;
@@ -293,13 +295,15 @@ public class Farm extends ModifiablePlotCollection {
 		}
 		p.setVelocity(new Vector(0, 1.2, 0));
 	}
+
 	public void blankSelect(Chunk pl){
-		int loc = this.getPlotSlot(pl);
+		int loc = this.getN(pl);
 		if(loc > -1){
 			this.openSet();
 			this.currentSelected = pl;
 		}
 	}
+
 	public void plotChange(Class<? extends Plot> set){
 		if(set != null && this.currentSelected != null){
 			if(Upgradeable.class.isAssignableFrom(set)){
@@ -322,7 +326,7 @@ public class Farm extends ModifiablePlotCollection {
 	}
 
 	private void openSet(){
-		Inventory ret = Bukkit.createInventory(null, 27, Constant.setPlotName);
+		Inventory ret = Bukkit.createInventory(null, 27, Constant.SET_PLOT_NAME);
 		if(this.getPlots("Farm Plot") < Plots.getMaxPlots(FarmPlot.class, this.getTownHallLevel(), this.getLevel())){
 			ItemStack add = new ItemStack(Material.HAY_BLOCK, 1);
 			ItemMeta am = add.getItemMeta();

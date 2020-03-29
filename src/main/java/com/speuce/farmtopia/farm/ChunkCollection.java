@@ -2,6 +2,7 @@ package main.java.com.speuce.farmtopia.farm;
 
 import main.java.com.speuce.farmtopia.util.chunk.ChunkUtil;
 import org.bukkit.Chunk;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,15 +10,15 @@ import java.util.Iterator;
 
 /**
  * Represents a iterable collection of chunks,
- * originating from a base location
+ * originating from a base Chunk
  * @author Matt Kwiatkowksi
  */
 public class ChunkCollection implements Iterable<Chunk> {
 
     /**
-     * The Location (and chunk) where this collection is based.
+     * The Chunk (and chunk) where this collection is based.
      */
-    private Location baseLocation;
+    private Chunk baseChunk;
 
     /**
      * The Number of Chunks to count up to when iterating over this collection
@@ -25,25 +26,35 @@ public class ChunkCollection implements Iterable<Chunk> {
     private int size;
 
 
-    public ChunkCollection(Location baseLocation, int size) {
-        this.baseLocation = baseLocation;
+    public ChunkCollection(Location baseLoc, int size) {
+        this.baseChunk = baseLoc.getChunk();
         this.size = size;
     }
 
-
-
     /**
-     * Get the location that this chunk collection is based from.
+     * Gets the n-value for the given chunk
+     * returns -1 if the n value is outside the range
+     * of this collection
+     * @param c the Chunk to calculate for.
+     * @return n, if the n-value is found and <= size; -1 otherwise.
      */
-    public Location getBaseLocation() {
-        return baseLocation;
+    public int getN(Chunk c){
+        int n = ChunkUtil.getN(c, this.getBaseChunk());
+        return (n <= getSize()) ? n:-1;
     }
 
     /**
-     * Get the location that this chunk collection is based from.
+     * Get the Chunk that this chunk collection is based from.
      */
-    public void setBaseLocation(Location baseLocation) {
-        this.baseLocation = baseLocation;
+    public Chunk getBaseChunk() {
+        return baseChunk;
+    }
+
+    /**
+     * Get the Chunk that this chunk collection is based from.
+     */
+    public void setBaseChunk(Chunk baseChunk) {
+        this.baseChunk = baseChunk;
     }
 
     public int getSize(){
@@ -63,19 +74,11 @@ public class ChunkCollection implements Iterable<Chunk> {
      */
     public Chunk addChunk(){
         size++;
-        Chunk c = baseLocation.getChunk();
-        Iterator<Chunk> it = this.iterator();
-        while(it.hasNext()){
-            c = it.next();
-        }
-        return c;
+        return ChunkUtil.getNthChunk(size, baseChunk);
     }
-
-
 
     /**
      * Returns the iterator for this chunk collection.
-     * @return
      */
     @NotNull
     @Override
@@ -83,7 +86,7 @@ public class ChunkCollection implements Iterable<Chunk> {
         return new Iterator<Chunk>() {
             //the current n-value
             private int n = 0;
-            private Chunk base = baseLocation.getChunk();
+            private Chunk base = baseChunk;
             
 
             @Override

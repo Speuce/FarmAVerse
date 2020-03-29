@@ -1,14 +1,12 @@
 package main.java.com.speuce.farmtopia.farm.plotcollections;
 
 import main.java.com.speuce.farmtopia.farm.Tutorial;
-import main.java.com.speuce.farmtopia.farm.plotcollections.OwnablePlotCollection;
 import main.java.com.speuce.farmtopia.main.FarmTopia;
 import main.java.com.speuce.farmtopia.plot.FarmPlot;
 import main.java.com.speuce.farmtopia.plot.Plot;
 import main.java.com.speuce.farmtopia.plot.PlotBuilder;
 import main.java.com.speuce.farmtopia.plot.upgradeable.ResearchCentre;
 import main.java.com.speuce.farmtopia.plot.upgradeable.Shop;
-import main.java.com.speuce.farmtopia.plot.upgradeable.TownHall;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -53,7 +51,7 @@ public class ModifiablePlotCollection extends OwnablePlotCollection {
         if(f instanceof Shop){
             Tutorial.onShopBuild(getOwner());
         }
-        this.setPlot(this.getPlotSlot(c), f);
+        this.setPlot(this.getN(c), f);
         //BuildQueue.queue(this.getFm().getClear().def(f.getChunk().getBlock(0, Constant.baseY - 1, 0), this.getFm().getPlugin()));
         PlotBuilder bl = new PlotBuilder(f, FarmTopia.getFarmTopia().getSchem(), c);
         bl.build(false);

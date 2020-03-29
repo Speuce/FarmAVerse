@@ -14,7 +14,7 @@ public class SC {
 	
 	public static void newScoreboard(Player p){
 		
-		ScoreboardWrapper ne = new ScoreboardWrapper(main.java.com.speuce.farmtopia.util.Constant.scoreboardName);
+		ScoreboardWrapper ne = new ScoreboardWrapper(main.java.com.speuce.farmtopia.util.Constant.SCOREBOARD_NAME);
 		ne.addBlankSpace();
 		ne.addBlankSpace();
 		ne.addBlankSpace();

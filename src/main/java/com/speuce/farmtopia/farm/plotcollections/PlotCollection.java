@@ -6,6 +6,7 @@ import main.java.com.speuce.farmtopia.util.chunk.ChunkUtil;
 import main.java.com.speuce.farmtopia.util.chunk.Direction;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public abstract class PlotCollection extends ChunkCollection {
     //the list of all plots in this plotcollection
-    private List<Plot> plots;
+    private ArrayList<Plot> plots;
 
     public PlotCollection(Location baseLocation, int size) {
         super(baseLocation, size);
@@ -35,7 +36,7 @@ public abstract class PlotCollection extends ChunkCollection {
      * Set the list of plots in this collection
      * @param plots
      */
-    public void setPlots(List<Plot> plots) {
+    public void setPlots(ArrayList<Plot> plots) {
         this.plots = plots;
     }
 
@@ -47,15 +48,7 @@ public abstract class PlotCollection extends ChunkCollection {
         plots.add(p);
     }
 
-    public int getPlotSlot(Chunk c){
-        for(int x = 0; x < plots.size(); x++){
-            Plot p = plots.get(x);
-            if(p.getChunk().getX() == c.getX() && p.getChunk().getZ() == c.getZ()){
-                return x;
-            }
-        }
-        return -1;
-    }
+
     public boolean hasPlot(String plotname){
         for(Plot f: this.plots){
             if(f.getName().equalsIgnoreCase(plotname)){
@@ -105,11 +98,29 @@ public abstract class PlotCollection extends ChunkCollection {
         return ret;
     }
 
+    /**
+     * Get the plot in the given direction
+     * @param curr the plot to search from
+     * @param d the direction to search
+     * @return the {@link Plot} if found, null otherwise.
+     */
+    @Nullable
+    public Plot getNearbyPlot(Plot curr, Direction d){
+        Chunk c = ChunkUtil.getNearby(curr.getChunk(), d);
+        return getPlot(c);
+    }
+
+    /**
+     * Calculates the n-value for, and returns the plot
+     * of the given chunk, if it is within this collection
+     * @param c the chunk to search for
+     * @return the associated {@link Plot} if found, null otherwise.
+     */
+    @Nullable
     public Plot getPlot(Chunk c){
-        for(Plot p: plots){
-            if(p.getChunk().getX() == c.getX() && p.getChunk().getZ() == c.getZ()){
-                return p;
-            }
+        int n = getN(c);
+        if(n > -1){
+            return getPlot(n-1);
         }
         return null;
     }
