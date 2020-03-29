@@ -5,7 +5,7 @@ import main.java.com.speuce.farmtopia.plot.BuildQueue;
 public class TestPredefinedSchem extends PredefinedSchem{
 	Long start;
 	public TestPredefinedSchem() {
-		super(null,null,null);
+		super(null,null);
 		this.start = System.currentTimeMillis();
 	}
 	@Override

@@ -1,5 +1,6 @@
 package main.java.com.speuce.schemetic;
 
+import main.java.com.speuce.farmtopia.main.FarmTopia;
 import main.java.com.speuce.schemetic.EBlock;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -295,19 +296,19 @@ public class Schematic {
 ////			return in;
 ////		}
 ////	}
-	public PredefinedSchem def(Block orgin, Plugin p){
-		return new PredefinedSchem(this, p, orgin);
+	public PredefinedSchem def(Block orgin){
+		return new PredefinedSchem(this, orgin);
 	}
-	public PredefinedSchem def(Block orgin, Plugin p, int rot){
-		return new PredefinedSchem(this, p, orgin, rot);
+	public PredefinedSchem def(Block orgin,int rot){
+		return new PredefinedSchem(this, orgin, rot);
 	}
-	public void buildOptimized(Block orgin, Plugin p){
-		this.buildOptimized(orgin, p, 0);
+	public void buildOptimized(Block orgin){
+		this.buildOptimized(orgin, 0);
 	}
-	public void buildOptimized(final Block orgin, Plugin p, int rotation){
-		buildOptimized(orgin, p, rotation, null);
+	public void buildOptimized(final Block orgin, int rotation){
+		buildOptimized(orgin, rotation, null);
 	}
-	public void buildOptimized(final Block orgin, Plugin p, int rotation, BukkitRunnable r){
+	public void buildOptimized(final Block orgin,int rotation, BukkitRunnable r){
 		BukkitRunnable br = new BukkitRunnable(){
 
 			@Override
@@ -339,12 +340,12 @@ public class Schematic {
 					}
 				}
 				//Bukkit.broadcastMessage("Optimized from: " + count(bls) + " to: " + count(ne));
-				build(ne, orgin, p, rotation, r);
+				build(ne, orgin, rotation, r);
 
 			}
 			
 		};
-		br.runTask(p);
+		br.runTask(FarmTopia.getFarmTopia());
 
 	}
 	@SuppressWarnings("unused")
@@ -361,7 +362,7 @@ public class Schematic {
 		}
 		return count;
 	}
-	private void build(EBlock[][][] blocks, Block orgin, Plugin p, int rotation, BukkitRunnable done){
+	private void build(EBlock[][][] blocks, Block orgin, int rotation, BukkitRunnable done){
 		//Bukkit.broadcastMessage("Schem Being Built: " + blocks.length + "x" + blocks[0].length + "x" + blocks[0][0].length);
 		BukkitRunnable br = new BukkitRunnable(){
 
@@ -388,12 +389,12 @@ public class Schematic {
 				secondLayer(orgin, rotation);
 				//System.out.println("---Done4---");
 				if(done != null){
-					done.runTaskLater(p, 5L);
+					done.runTaskLater(FarmTopia.getFarmTopia(), 5L);
 				}
 			}
 			
 		};
-		br.runTask(p);
+		br.runTask(FarmTopia.getFarmTopia());
 	}
 	private void secondLayer(Block orgin, int rotate){
 		if(this.hasSecondLayer && secondLayer != null){

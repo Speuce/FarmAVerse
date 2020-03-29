@@ -5,28 +5,23 @@ import org.bukkit.plugin.Plugin;
 
 public class PredefinedSchem {
 	private Schematic s;
-	private Plugin p;
 	private Block place;
 	private int rotation = 0;
-	public PredefinedSchem(Schematic s, Plugin p, Block place, int rot) {
+	public PredefinedSchem(Schematic s,Block place, int rot) {
 		super();
 		this.s = s;
-		this.p = p;
 		this.place = place;
 		this.rotation = rot;
 	}
-	public PredefinedSchem(Schematic s, Plugin p, Block place) {
-		this(s, p, place, 0);
+	public PredefinedSchem(Schematic s,Block place) {
+		this(s,place, 0);
 	}
 	public void build(){
-		s.buildOptimized(place, p, this.rotation);
+		s.buildOptimized(place, this.rotation);
 		//System.out.println("build");
 	}
 	public Schematic getS() {
 		return s;
-	}
-	public Plugin getP() {
-		return p;
 	}
 	public Block getPlace() {
 		return place;

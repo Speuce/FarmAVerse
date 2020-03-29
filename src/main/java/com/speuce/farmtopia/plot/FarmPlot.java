@@ -13,6 +13,7 @@ import main.java.com.speuce.farmtopia.farm.FarmManager;
 import main.java.com.speuce.farmtopia.farm.Tutorial;
 import main.java.com.speuce.farmtopia.resources.Resource;
 import main.java.com.speuce.farmtopia.util.Constant;
+import main.java.com.speuce.schemetic.SchemeticManager;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -122,7 +123,7 @@ public class FarmPlot extends Plot {
 		FarmSubPlot c = subPlots[x];
 		// this.getFarm().getFm().buildSchem("miniclear", farmSpots[x]);
 		if (c.currentSchem().equalsIgnoreCase("barren1")) {
-			this.getFarm().getFm().buildSchemOpt(c.currentSchem(), c.getAnchorBlock());
+			SchemeticManager.buildSchemOpt(c.currentSchem(), c.getAnchorBlock());
 			// Bukkit.broadcastMessage("Built Optimized");
 			return;
 		}
@@ -131,7 +132,7 @@ public class FarmPlot extends Plot {
 			FarmManager fm = f.getFm();
 			String schem = c.currentSchem();
 			Block b = subPlots[x].getAnchorBlock();
-			fm.buildSchem(schem, b);
+			SchemeticManager.buildSchem(schem, b);
 		} catch (NullPointerException e) {
 			Bukkit.broadcastMessage("ERROR");
 			e.printStackTrace();

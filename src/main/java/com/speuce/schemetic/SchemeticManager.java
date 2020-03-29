@@ -13,8 +13,10 @@ import java.util.Scanner;
 import java.util.logging.Level;
 
 import main.java.com.speuce.farmtopia.main.FarmTopia;
+import main.java.com.speuce.farmtopia.plot.BuildQueue;
 import main.java.com.speuce.schemetic.Selector;
 import org.bukkit.ChatColor;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,6 +24,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 
 public class SchemeticManager implements CommandExecutor {
@@ -48,6 +51,30 @@ public class SchemeticManager implements CommandExecutor {
 	}
 	public Plugin getPlugin(){
 		return this.p;
+	}
+
+	/**
+	 * Finds the schematic with given name and ATTEMPTS to build it.
+	 * @param name the name of the schematic to find
+	 * @param place the place to build it, if found.
+	 */
+	public static void buildSchem(String name, Block place) {
+		Schematic sc = FarmTopia.getFarmTopia().getSchem().getSchemetic(name);
+		if (sc != null) {
+			BuildQueue.queue(sc.def(place));
+		}
+	}
+
+	/**
+	 * Builds the given schematic optimized, if found
+	 * @param name the name of the schematic to find
+	 * @param place the place to build it, if found.
+	 */
+	public static void buildSchemOpt(String name, Block place) {
+		Schematic sc = FarmTopia.getFarmTopia().getSchem().getSchemetic(name);
+		if (sc != null) {
+			sc.buildOptimized(place);
+		}
 	}
 
 	private Schematic loadSchemetic(String name) throws FileNotFoundException{
@@ -192,12 +219,12 @@ public class SchemeticManager implements CommandExecutor {
 		EBlock[][][] lis = s.getBlocks();
 		for(EBlock[][] x: lis){
 			for(EBlock[] y: x){
-				String line = "";
-				for(int z = 0; z < y.length; z++){
-					if(y[z] == null){
-						line += "n ";
-					}else{
-						line += y[z].toString() + " ";
+				StringBuilder line = new StringBuilder();
+				for (EBlock eBlock : y) {
+					if (eBlock == null) {
+						line.append("n ");
+					} else {
+						line.append(eBlock.toString()).append(" ");
 					}
 				}
 				pw.println(line);
@@ -220,7 +247,7 @@ public class SchemeticManager implements CommandExecutor {
 		}
 	}
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String arg2, @NotNull String[] args) {
 		if(sender instanceof Player){
 			Player p = (Player) sender;
 			if(cmd.getName().equalsIgnoreCase("save")){
@@ -259,23 +286,20 @@ public class SchemeticManager implements CommandExecutor {
 												rotate = Integer.parseInt(thing[1]);
 											}catch(NumberFormatException e){
 												p.sendMessage("Valid Number please!");
-												continue;
 											}
 										}else{
 											p.sendMessage(ChatColor.RED.toString() + "rotate:NUM");
-											continue;
 										}
 									}else{
 										p.sendMessage(ChatColor.RED.toString() + "Unknown build parameter: " + str);
-										continue;
 									}
 								}
 								//Bukkit.broadcastMessage("building with rot: " + rotate);
-								sc.buildOptimized(p.getLocation().getBlock(), this.p, rotate);
+								sc.buildOptimized(p.getLocation().getBlock(),rotate);
 								p.sendMessage(ChatColor.GREEN + "Buidling..");
 								return true;
 							}else{
-								sc.buildOptimized(p.getLocation().getBlock(), this.p);
+								sc.buildOptimized(p.getLocation().getBlock());
 								p.sendMessage(ChatColor.GREEN + "Buidling..");
 								return true;
 							}

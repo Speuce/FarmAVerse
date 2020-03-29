@@ -38,9 +38,9 @@ public class PlotBuilder {
 			return;
 		}
 		if(queue){
-			BuildQueue.queue(sc.def(p.getChunk().getBlock(0, Constant.baseY, 0), man.getPlugin()));
+			BuildQueue.queue(sc.def(p.getChunk().getBlock(0, Constant.baseY, 0)));
 		}else{
-			sc.buildOptimized(p.getChunk().getBlock(0, Constant.baseY, 0), man.getPlugin(),0, new BukkitRunnable(){
+			sc.buildOptimized(p.getChunk().getBlock(0, Constant.baseY, 0),0, new BukkitRunnable(){
 
 				@Override
 				public void run() {
@@ -69,9 +69,9 @@ public class PlotBuilder {
 								return;
 							}
 							if(queue){
-								BuildQueue.queue(cro.def(fm.getFarmSpot(spot), man.getPlugin()));
+								BuildQueue.queue(cro.def(fm.getFarmSpot(spot)));
 							}else{
-								cro.buildOptimized(fm.getFarmSpot(spot), man.getPlugin());
+								cro.buildOptimized(fm.getFarmSpot(spot));
 							}
 
 						}else{
@@ -82,9 +82,9 @@ public class PlotBuilder {
 								return;
 							}
 							if(queue){
-								BuildQueue.queue(emp.def(fm.getFarmSpot(spot), man.getPlugin()));
+								BuildQueue.queue(emp.def(fm.getFarmSpot(spot)));
 							}else{
-								emp.buildOptimized(fm.getFarmSpot(spot), man.getPlugin());
+								emp.buildOptimized(fm.getFarmSpot(spot));
 							}
 							//Bukkit.broadcastMessage("SPot");
 						}

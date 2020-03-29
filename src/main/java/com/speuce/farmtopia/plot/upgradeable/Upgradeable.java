@@ -6,6 +6,7 @@ import java.util.List;
 import main.java.com.speuce.farmtopia.farm.Farm;
 import main.java.com.speuce.farmtopia.plot.Plot;
 import main.java.com.speuce.farmtopia.util.Constant;
+import main.java.com.speuce.schemetic.SchemeticManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -47,7 +48,7 @@ public abstract class Upgradeable extends Plot {
 			this.lvl++;
 			//Bukkit.broadcastMessage("upgraded");
 			this.getChunk().getWorld().playSound(this.getChunk().getBlock(8, Constant.baseY, 8).getLocation(), Sound.BLOCK_ANVIL_USE, 3F, 0F);
-			this.getFarm().getFm().buildSchem(this.getSchem(lvl), this.getChunk().getBlock(0, Constant.baseY, 0));
+			SchemeticManager.buildSchem(this.getSchem(lvl), this.getChunk().getBlock(0, Constant.baseY, 0));
 			this.onUpgrade();
 		}
 	}
