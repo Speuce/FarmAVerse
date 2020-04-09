@@ -134,6 +134,26 @@ public class Constant {
 		return (s != null && s != Resource.NOTHING) && 
 				(s.toString().contains("ESSENCE"));
 	}
+
+	/**
+	 * Attempts to take x items from the players hand.
+	 * @return true if the player hand enough and the given quantity was taken,
+	 * false otherwise.
+	 */
+	public static boolean takeFromHand(Player p, int take){
+		int amt = p.getInventory().getItemInMainHand().getAmount();
+		if (amt == take) {
+			p.getInventory().setItemInMainHand(null);
+			return true
+		} else if(amt > take){
+			ItemStack s = p.getInventory().getItemInMainHand();
+			s.setAmount(s.getAmount() - take);
+			p.getInventory().setItemInMainHand(s);
+			return true;
+		}
+		return false;
+	}
+
 	public static Family getFamilyOf(Resource s){
 		Family f1 = Family.getByResource(s);
 		if(f1 == Family.NONE || f1 == null){

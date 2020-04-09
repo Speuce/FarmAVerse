@@ -1,7 +1,9 @@
 package main.java.com.speuce.farmtopia.event.farm.plot.research;
 
 import main.java.com.speuce.farmtopia.farm.Farm;
-import main.java.com.speuce.farmtopia.plot.upgradeable.ResearchCentre;
+import main.java.com.speuce.farmtopia.plot.Plot;
+import main.java.com.speuce.farmtopia.plot.upgradeable.seedResearch.SeedMachine;
+import main.java.com.speuce.farmtopia.plot.upgradeable.seedResearch.SeedResearchCentre;
 import main.java.com.speuce.farmtopia.resources.Resource;
 import org.bukkit.event.HandlerList;
 
@@ -12,8 +14,8 @@ import org.bukkit.event.HandlerList;
 public class FarmResearchCollectEvent extends FarmResearchEvent{
     private Resource result;
 
-    public FarmResearchCollectEvent(Farm farm, ResearchCentre plot, ResearchType type, Resource result) {
-        super(farm, plot, type);
+    public FarmResearchCollectEvent(Farm farm, Plot plot, SeedMachine machine, Resource result) {
+        super(farm, plot, machine);
         this.result = result;
     }
 

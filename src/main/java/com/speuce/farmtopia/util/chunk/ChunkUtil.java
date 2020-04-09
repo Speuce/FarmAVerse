@@ -16,7 +16,7 @@ public class ChunkUtil {
      * @param c the current chunk
      * @return an array of nearby chunks.
      */
-    public static Chunk[] getNearbyChunks(Chunk c){
+    public static Chunk[] getNearbyChunks(@NotNull Chunk c){
         Chunk[] ret = new Chunk[8];
         for(int i = 0; i < 8; i++){
             ret[i] = ChunkUtil.getNearby(c, Direction.fromInt(i));
@@ -31,7 +31,7 @@ public class ChunkUtil {
      * @return the nearby chunk
      */
     @NotNull
-    public static Chunk getNearby(Chunk c, Direction d){
+    public static Chunk getNearby(@NotNull Chunk c, Direction d){
         return getNearby(c, d.getXoffset(), d.getZoffset());
     }
 
@@ -43,7 +43,7 @@ public class ChunkUtil {
      * @return the nearby chunk
      */
     @NotNull
-    public static Chunk getNearby(Chunk c, int xoffset, int zoffset){
+    public static Chunk getNearby(@NotNull Chunk c, int xoffset, int zoffset){
         return c.getWorld().getChunkAt(c.getX() +xoffset, c.getZ() + zoffset);
     }
 
@@ -83,11 +83,13 @@ public class ChunkUtil {
         int v = Math.max(xoff, zoff);
         int q = (v*v) + v + 1;
         //Chunk cmp = base.nearby(-v,-v);
+        int ret;
         if(xoff < v){
-            return q-(v-xoff);
+            ret = q-(v-xoff);
         }else{
-            return q+(v-zoff);
+            ret = q+(v-zoff);
         }
+        return (ret > 0) ? ret: -1;
     }
 
 //    /**

@@ -126,6 +126,10 @@ public enum Resource {
 	public RandomChance getJobAmount(){
 		return this.jobAmount;
 	}
+
+	/**
+	 * Get the id of this resource, used for serializing
+	 */
 	public byte getId() {
 		return (byte)this.ordinal();
 	}
