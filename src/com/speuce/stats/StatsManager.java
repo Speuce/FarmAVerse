@@ -85,22 +85,22 @@ public class StatsManager implements Listener,CommandExecutor{
 			e.setMessage(e.getMessage().replace('%', ' '));
 			if(s.getRank() != Rank.DEFAULT){
 				if(s.getStaffRank() != StaffRank.NONE){
-					e.setFormat(s.getRank().getPrefix() + " " + ChatColor.GRAY + p.getDisplayName()  + " "+ s.getStaffRank().getTag() + ChatColor.RED + " » " + ChatColor.GRAY.toString() + e.getMessage());
+					e.setFormat(s.getRank().getPrefix() + " " + ChatColor.GRAY + p.getDisplayName()  + " "+ s.getStaffRank().getTag() + ChatColor.RED + " > " + ChatColor.GRAY.toString() + e.getMessage());
 					return;
 				}
-				e.setFormat(s.getRank().getPrefix()  + " " + ChatColor.GRAY +  p.getDisplayName() + ChatColor.RED + " » " + ChatColor.GRAY.toString() + e.getMessage());
+				e.setFormat(s.getRank().getPrefix()  + " " + ChatColor.GRAY +  p.getDisplayName() + ChatColor.RED + " > " + ChatColor.GRAY.toString() + e.getMessage());
 				return;
 			}else{
 				if(s.getStaffRank() != StaffRank.NONE){
-					e.setFormat( ChatColor.GRAY + p.getDisplayName() + " " +s.getStaffRank().getTag()  + ChatColor.RED + " » " + ChatColor.GRAY.toString() + e.getMessage());
+					e.setFormat( ChatColor.GRAY + p.getDisplayName() + " " +s.getStaffRank().getTag()  + ChatColor.RED + " > " + ChatColor.GRAY.toString() + e.getMessage());
 					return;
 				}
 				
-				e.setFormat(ChatColor.GRAY + p.getDisplayName()+ ChatColor.RED + " » " + ChatColor.GRAY.toString() + e.getMessage());
+				e.setFormat(ChatColor.GRAY + p.getDisplayName()+ ChatColor.RED + " > " + ChatColor.GRAY.toString() + e.getMessage());
 				return;
 			}
 		}else{
-			e.setFormat(ChatColor.GRAY + p.getDisplayName() + ChatColor.RED + " » " + ChatColor.GRAY.toString() + e.getMessage());
+			e.setFormat(ChatColor.GRAY + p.getDisplayName() + ChatColor.RED + " > " + ChatColor.GRAY.toString() + e.getMessage());
 		}
 	}
 	

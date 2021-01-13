@@ -93,7 +93,7 @@ public class ShopManager implements CommandExecutor, Listener{
 	}
 	@EventHandler
 	public void onClose(InventoryCloseEvent e) {
-		if(e.getInventory().getName().equals(putItem)) {
+		if(e.getView().getTitle().equals(putItem)) {
 			checkOff((Player)e.getPlayer(), e.getInventory());
 		}
 		if(this.opened.containsKey(e.getPlayer())) {
@@ -166,7 +166,7 @@ public class ShopManager implements CommandExecutor, Listener{
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
 		if(e.getClickedInventory() != null && e.getClickedInventory().equals(e.getView().getTopInventory())
-				&& e.getClickedInventory().getName().equals(putItem)) {
+				&& e.getView().getTitle().equals(putItem)) {
 			if(e.getCurrentItem().equals(Constant.getOk())) {
 				checkOff((Player)e.getWhoClicked(), e.getClickedInventory());
 				e.setCancelled(true);
@@ -283,8 +283,8 @@ public class ShopManager implements CommandExecutor, Listener{
 	}
 	@EventHandler
 	public void onClose(InventoryClickEvent e) {
-		if(opened.containsKey((Player)e.getInventory())) {
-			opened.remove((Player)e.getInventory());
+		if(opened.containsKey((Player)e.getWhoClicked())) {
+			opened.remove((Player)e.getWhoClicked());
 		}
 	}
 	private void makeTable(){
@@ -295,15 +295,14 @@ public class ShopManager implements CommandExecutor, Listener{
 				PreparedStatement ps = null;
 				try {
 					c = sql.getConnection();
-					ps = c.prepareStatement("CREATE TABLE IF NOT EXISTS`Speuce`.`shop` "
-							+ "( `id` INT NOT NULL AUTO_INCREMENT ,"
+					ps = c.prepareStatement("CREATE TABLE IF NOT EXISTS `shop` "
+							+ "( `id` INTEGER PRIMARY KEY ,"
 							+ " `item` SMALLINT NOT NULL , "
 							+ "`amount` SMALLINT NOT NULL , "
 							+ "`price` DOUBLE NOT NULL , "
 							+ "`created` TIMESTAMP NOT NULL ,"
 							+ " `taken` BOOLEAN NOT NULL DEFAULT FALSE , "
-							+ "`shopid` INT NOT NULL ,"
-							+ " PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+							+ "`shopid` INT NOT NULL);");
 					ps.execute();
 				} catch (SQLException e) {
 					e.printStackTrace();

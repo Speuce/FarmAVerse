@@ -177,7 +177,8 @@ public enum Resource {
 		}
 		return NOTHING;
 	}
-	@SuppressWarnings("deprecation")
+
+
 	public ItemStack toItemStack(int amt){
 		if(this != NOTHING){
 			ItemStack ret;
@@ -192,7 +193,7 @@ public enum Resource {
 				met = ret.getItemMeta();
 				met.setDisplayName(name);
 				met.setLore(lore);
-				met.spigot().setUnbreakable(true);
+				met.setUnbreakable(true);
 				met.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 			}
 			if(enchanted){

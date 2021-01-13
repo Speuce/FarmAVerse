@@ -106,7 +106,7 @@ public class FarmManager implements Listener, CommandExecutor {
 		this.sql = sql;
 		this.pl = main;
 		// this.keep = new HashSet<Chunk>();
-		this.main = Bukkit.getWorld("blank");
+		this.main = Bukkit.getWorld("world");
 		this.loadedFarms = new HashMap<Player, Farm>();
 		this.lookup = new HashMap<Location, Farm>();
 		this.clear = schem.getSchemetic("clear");
@@ -306,7 +306,7 @@ public class FarmManager implements Listener, CommandExecutor {
 				// for(Player p: Bukkit.getOnlinePlayers()){
 				// if(p.getOpenInventory() != null &&
 				// p.getOpenInventory().getTopInventory() != null){
-				// if(p.getOpenInventory().getTopInventory().getName().equals(Constant.seedExtractorName)){
+				// if(p.getOpenInventory().getTitle().equals(Constant.seedExtractorName)){
 				// Farm f = loadedFarms.get(p);
 				// ((ResearchCentre)f.getFirstPlot(ResearchCentre.class)).openUpgradeInventory(p);
 				// }
@@ -342,8 +342,8 @@ public class FarmManager implements Listener, CommandExecutor {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
 		// Bukkit.broadcastMessage("clicked");
-		if (e.getClickedInventory() != null && e.getClickedInventory().getName() != null) {
-			if (e.getClickedInventory().getName().contains("Harvested")) {
+		if (e.getClickedInventory() != null && e.getView().getTitle() != null) {
+			if (e.getView().getTitle().contains("Harvested")) {
 				if (e.getCurrentItem() == null) {
 					return;
 				}
@@ -355,7 +355,7 @@ public class FarmManager implements Listener, CommandExecutor {
 					e.getWhoClicked().closeInventory();
 					return;
 				}
-			} else if (e.getClickedInventory().getName()
+			} else if (e.getView().getTitle()
 					.equalsIgnoreCase(ChatColor.DARK_PURPLE.toString() + "Farm Menu")) {
 				e.setCancelled(true);
 				if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta()) {
@@ -384,7 +384,7 @@ public class FarmManager implements Listener, CommandExecutor {
 						Bukkit.dispatchCommand(pl, "j");
 					}
 				}
-			} else if (e.getClickedInventory().getName().startsWith("Upgrade")) {
+			} else if (e.getView().getTitle().startsWith("Upgrade")) {
 				e.setCancelled(true);
 				if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta()) {
 					if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Cancel")) {
@@ -415,7 +415,7 @@ public class FarmManager implements Listener, CommandExecutor {
 						}
 					}
 				}
-			} else if (e.getClickedInventory().getName().equals(Constant.setPlotName)) {
+			} else if (e.getView().getTitle().equals(Constant.setPlotName)) {
 				e.setCancelled(true);
 				if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta()) {
 					Double cost = -1D;
@@ -457,12 +457,12 @@ public class FarmManager implements Listener, CommandExecutor {
 						}
 					}
 				}
-			} else if (e.getView().getTopInventory() != null
-					&& e.getView().getTopInventory().getName().equalsIgnoreCase(Constant.seedExtractorName)
+			} else if (
+					e.getView().getTitle().equalsIgnoreCase(Constant.seedExtractorName)
 					&& e.isShiftClick()) {
 				e.setCancelled(true);
 				return;
-			} else if (e.getClickedInventory().getName().equals(Constant.seedExtractorName)) {
+			} else if (e.getView().getTitle().equals(Constant.seedExtractorName)) {
 				// Bukkit.broadcastMessage("cli");
 				if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
 					// Bukkit.broadcastMessage("current item isn't null");

@@ -125,9 +125,9 @@ public class JobManager implements CommandExecutor, Listener{
 						}
 						if(b > 0){
 							if(b == maxJobs){
-								p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b» &cYou have &e" + unopened.get(p) +"&7 (MAX) "+ "&cUnopened Jobs!"));
+								p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou have &e" + unopened.get(p) +"&7 (MAX) "+ "&cUnopened Jobs!"));
 							}else{
-								p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b» &cYou have &e" + unopened.get(p) + " &cUnopened Job(s)!"));
+								p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou have &e" + unopened.get(p) + " &cUnopened Job(s)!"));
 							}
 							
 						}
@@ -201,7 +201,7 @@ public class JobManager implements CommandExecutor, Listener{
 	}
 	@EventHandler
 	public void onClick(InventoryClickEvent e){
-		if(e.getClickedInventory() != null && e.getClickedInventory().getName().equals(Constant.jobInvName)){
+		if(e.getClickedInventory() != null && e.getView().getTitle().equals(Constant.jobInvName)){
 			e.setCancelled(true);
 			if( e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR){
 				return;

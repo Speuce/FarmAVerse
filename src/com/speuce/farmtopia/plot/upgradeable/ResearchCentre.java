@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import com.google.common.primitives.Longs;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -17,7 +18,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.google.common.primitives.Longs;
+
+
 import com.speuce.farmtopia.Constant;
 import com.speuce.farmtopia.crop.CropType;
 import com.speuce.farmtopia.crop.Family;
@@ -305,8 +307,7 @@ public class ResearchCentre extends Upgradeable {
 		}
 	}
 
-	@Override
-	public void onInteract(PlayerInteractEvent e) {
+	public void onInteractOwner(PlayerInteractEvent e) {
 
 		if (e.getClickedBlock().getType() == Material.DISPENSER) {
 			e.setCancelled(true);
