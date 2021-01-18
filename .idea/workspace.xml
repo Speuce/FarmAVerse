@@ -2,147 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="221b7714-3444-4881-8d49-cf26623572bd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/FarmTopia.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_21_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_googlecode_json_simple_json_simple_1_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_zaxxer_HikariCP_2_4_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_10.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_md_5_bungeecord_chat_1_13_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_18.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_spigotmc_spigot_api_1_13_2_R0_1_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_xerial_sqlite_jdbc_3_25_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_23.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FarmaTopia.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/commands/Item.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/craft/Crafter.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/craft/CraftingManager$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/craft/CraftingManager.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/craft/Recipe.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/craft/crafters/Craft3x3.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/craft/crafters/Craft4x4.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/crop/CropType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/crop/Family.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/crop/FarmSubplot.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/Farm$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/Farm.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmBuilder$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmManager$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmManager$10.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmManager$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmManager$3.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmManager$4.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmManager$5.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmManager$6$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmManager$6.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmManager$7.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmManager$8.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmManager$9.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmManager.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/FarmReady.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/Tutorial$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/Tutorial.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/farm/TutorialTextBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/jobs/Job.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/jobs/JobLore.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/jobs/JobManager$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/jobs/JobManager.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/main/DebugLevel.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/main/FarmTopia$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/main/FarmTopia.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/plot/BuildQueue$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/plot/BuildQueue.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/plot/FarmPlot.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/plot/Plot.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/plot/upgradeable/Pavillion$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/plot/upgradeable/Pavillion.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/plot/upgradeable/Shop.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/plot/upgradeable/TownHall.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/plot/upgradeable/Upgradeable.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/resources/Resource.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/shop/Shop.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/shop/ShopManager$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/shop/ShopManager$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/shop/ShopManager$3.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/shop/ShopManager$4.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/shop/ShopManager$5.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/shop/ShopManager$6.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/shop/ShopManager$7.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/shop/ShopManager$8.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/shop/ShopManager$9.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/shop/ShopManager.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/shop/ShopOffer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/util/ChunkGen.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/util/Plural.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/util/RandomChance.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/util/RandomCollection.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/util/SC.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/util/ScoreboardWrapper.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/util/Serializable.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/util/anvilGUI/AnvilGUII.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/util/anvilGUI/Version.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/farmtopia/util/anvilGUI/VersionWrapper.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/schemetic/EBlock.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/schemetic/PredefinedSchem.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/schemetic/Schematic$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/schemetic/Schematic$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/schemetic/Schematic$3.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/schemetic/Schematic$4.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/schemetic/Schematic.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/schemetic/SchemeticManager$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/schemetic/SchemeticManager.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/schemetic/Selection.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/schemetic/Selector.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/schemetic/TestPredefinedSchem.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/sql/ColumnAdd.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/sql/DataType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/sql/Query.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/sql/Rank.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/sql/SQLManager.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/sql/SQLQuery.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/sql/ValueCheck.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/sql/booleanQuery.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StaffCommands.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StaffRank.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/Stats.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsJoin.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$10.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$11.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$12.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$13.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$14.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$15.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$16.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$17.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$3.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$4.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$5.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$6.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$7.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$8.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager$9.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/speuce/stats/StatsManager.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/speuce/farmtopia/farm/handlers/PhysicsHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/FarmTopia.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FarmTopia.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FarmaTopia.iml" beforeDir="false" afterPath="$PROJECT_DIR$/FarmaTopia.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/speuce/farmtopia/craft/CraftingManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/speuce/farmtopia/craft/CraftingManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/speuce/farmtopia/farm/FarmManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/speuce/farmtopia/farm/FarmManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/speuce/farmtopia/jobs/JobManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/speuce/farmtopia/jobs/JobManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/speuce/farmtopia/plot/upgradeable/ResearchCentre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/speuce/farmtopia/plot/upgradeable/ResearchCentre.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/speuce/farmtopia/resources/Resource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/speuce/farmtopia/resources/Resource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/speuce/farmtopia/main/FarmTopia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/speuce/farmtopia/main/FarmTopia.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/speuce/farmtopia/shop/ShopManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/speuce/farmtopia/shop/ShopManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/speuce/stats/StatsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/speuce/stats/StatsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/speuce/schemetic/EZBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/speuce/schemetic/EZBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/speuce/sql/SQLManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/speuce/sql/SQLManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,9 +53,10 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
-    <property name="Repository.Attach.Annotations" value="true" />
+    <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
+    <property name="Repository.Attach.Sources" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -198,6 +72,7 @@
       <recent name="main.java.com.speuce.farmtopia.main" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Resources" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
@@ -249,6 +124,62 @@
       </MavenSettings>
       <method v="2" />
     </configuration>
+    <configuration name="[clean,install]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="install" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="dk bri" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="install:install-file" />
+                <option value="-Dfile=$PROJECT_DIR$/Resources/ID-Library.jar" />
+                <option value="-DgroupId=IDLibrary" />
+                <option value="-DartifactId=me.idlibrary.main.IDLibrary" />
+                <option value="-Dversion=1.0" />
+                <option value="-Dpackaging=jar" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
     <configuration name="maven clean" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -277,6 +208,8 @@
     <list>
       <item itemvalue="JAR Application.Spigot" />
       <item itemvalue="JUnit.main.java.com.speuce.farmtopia.plot.subplot in FarmTopia" />
+      <item itemvalue="Maven.dk bri" />
+      <item itemvalue="Maven.[clean,install]" />
       <item itemvalue="Maven.maven clean" />
       <item itemvalue="Maven.FarmTopia build" />
     </list>
@@ -298,6 +231,9 @@
       <updated>1584402949957</updated>
       <workItem from="1610470392993" duration="964000" />
       <workItem from="1610471397689" duration="6941000" />
+      <workItem from="1610554127425" duration="630000" />
+      <workItem from="1610572255688" duration="7980000" />
+      <workItem from="1610935728895" duration="3685000" />
     </task>
     <servers />
   </component>
@@ -308,11 +244,12 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="239" y="113" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1610472331233">
-      <screen x="0" y="23" width="1536" height="867" />
+    <state x="239" y="113" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1610914078209">
+      <screen x="0" y="23" width="1536" height="865" />
     </state>
+    <state x="189" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1536.860@0.23.1536.860" timestamp="1610913202915" />
     <state x="239" y="113" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1536.862@0.23.1536.862" timestamp="1610470902307" />
-    <state x="239" y="113" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1536.865@0.23.1536.865" timestamp="1610471769534" />
+    <state x="239" y="113" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1536.865@0.23.1536.865" timestamp="1610914078209" />
     <state x="239" y="113" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1536.867@0.23.1536.867" timestamp="1610472331233" />
     <state x="588" y="164" key="#com.intellij.ide.util.MemberChooser" timestamp="1610471997506">
       <screen x="0" y="23" width="1536" height="862" />
@@ -323,42 +260,79 @@
       <screen x="0" y="23" width="1536" height="862" />
     </state>
     <state x="391" y="147" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/0.23.1536.862@0.23.1536.862" timestamp="1610471851809" />
-    <state width="1448" height="174" key="GridCell.Tab.0.bottom" timestamp="1610480061197">
+    <state x="582" y="142" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1610855345375">
+      <screen x="0" y="23" width="1536" height="860" />
+    </state>
+    <state x="582" y="142" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.23.1536.860@0.23.1536.860" timestamp="1610855345375" />
+    <state x="482" y="203" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1610855871306">
       <screen x="0" y="23" width="1536" height="862" />
     </state>
-    <state width="1448" height="174" key="GridCell.Tab.0.bottom/0.23.1536.862@0.23.1536.862" timestamp="1610480061197" />
-    <state width="1448" height="174" key="GridCell.Tab.0.bottom/0.23.1536.865@0.23.1536.865" timestamp="1610476586004" />
-    <state width="1448" height="174" key="GridCell.Tab.0.bottom/0.23.1536.867@0.23.1536.867" timestamp="1610476690888" />
+    <state x="482" y="203" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.23.1536.860@0.23.1536.860" timestamp="1610855347202" />
+    <state x="482" y="203" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.23.1536.862@0.23.1536.862" timestamp="1610855871306" />
+    <state width="1494" height="62" key="GridCell.Tab.0.bottom" timestamp="1610940305296">
+      <screen x="0" y="23" width="1536" height="857" />
+    </state>
+    <state width="1494" height="254" key="GridCell.Tab.0.bottom/0.23.1536.855@0.23.1536.855" timestamp="1610937164638" />
+    <state width="1494" height="62" key="GridCell.Tab.0.bottom/0.23.1536.857@0.23.1536.857" timestamp="1610940305296" />
+    <state width="1494" height="96" key="GridCell.Tab.0.bottom/0.23.1536.860@0.23.1536.860" timestamp="1610939092359" />
+    <state width="1477" height="363" key="GridCell.Tab.0.bottom/0.23.1536.862@0.23.1536.862" timestamp="1610934469776" />
+    <state width="1477" height="365" key="GridCell.Tab.0.bottom/0.23.1536.865@0.23.1536.865" timestamp="1610914441486" />
+    <state width="1477" height="124" key="GridCell.Tab.0.bottom/0.23.1536.867@0.23.1536.867" timestamp="1610914392162" />
     <state width="1448" height="174" key="GridCell.Tab.0.bottom/0.23.1536.869@0.23.1536.869" timestamp="1610476663692" />
-    <state width="1448" height="174" key="GridCell.Tab.0.center" timestamp="1610480061196">
-      <screen x="0" y="23" width="1536" height="862" />
+    <state width="1494" height="62" key="GridCell.Tab.0.center" timestamp="1610940305295">
+      <screen x="0" y="23" width="1536" height="857" />
     </state>
-    <state width="1448" height="174" key="GridCell.Tab.0.center/0.23.1536.862@0.23.1536.862" timestamp="1610480061196" />
-    <state width="1448" height="174" key="GridCell.Tab.0.center/0.23.1536.865@0.23.1536.865" timestamp="1610476586003" />
-    <state width="1448" height="174" key="GridCell.Tab.0.center/0.23.1536.867@0.23.1536.867" timestamp="1610476690887" />
+    <state width="1494" height="254" key="GridCell.Tab.0.center/0.23.1536.855@0.23.1536.855" timestamp="1610937164637" />
+    <state width="1494" height="62" key="GridCell.Tab.0.center/0.23.1536.857@0.23.1536.857" timestamp="1610940305295" />
+    <state width="1494" height="96" key="GridCell.Tab.0.center/0.23.1536.860@0.23.1536.860" timestamp="1610939092358" />
+    <state width="1477" height="363" key="GridCell.Tab.0.center/0.23.1536.862@0.23.1536.862" timestamp="1610934469775" />
+    <state width="1477" height="365" key="GridCell.Tab.0.center/0.23.1536.865@0.23.1536.865" timestamp="1610914441485" />
+    <state width="1477" height="124" key="GridCell.Tab.0.center/0.23.1536.867@0.23.1536.867" timestamp="1610914392161" />
     <state width="1448" height="174" key="GridCell.Tab.0.center/0.23.1536.869@0.23.1536.869" timestamp="1610476663692" />
-    <state width="1448" height="174" key="GridCell.Tab.0.left" timestamp="1610480061196">
-      <screen x="0" y="23" width="1536" height="862" />
+    <state width="1494" height="62" key="GridCell.Tab.0.left" timestamp="1610940305295">
+      <screen x="0" y="23" width="1536" height="857" />
     </state>
-    <state width="1448" height="174" key="GridCell.Tab.0.left/0.23.1536.862@0.23.1536.862" timestamp="1610480061196" />
-    <state width="1448" height="174" key="GridCell.Tab.0.left/0.23.1536.865@0.23.1536.865" timestamp="1610476586003" />
-    <state width="1448" height="174" key="GridCell.Tab.0.left/0.23.1536.867@0.23.1536.867" timestamp="1610476690887" />
+    <state width="1494" height="254" key="GridCell.Tab.0.left/0.23.1536.855@0.23.1536.855" timestamp="1610937164636" />
+    <state width="1494" height="62" key="GridCell.Tab.0.left/0.23.1536.857@0.23.1536.857" timestamp="1610940305295" />
+    <state width="1494" height="96" key="GridCell.Tab.0.left/0.23.1536.860@0.23.1536.860" timestamp="1610939092357" />
+    <state width="1477" height="363" key="GridCell.Tab.0.left/0.23.1536.862@0.23.1536.862" timestamp="1610934469775" />
+    <state width="1477" height="365" key="GridCell.Tab.0.left/0.23.1536.865@0.23.1536.865" timestamp="1610914441485" />
+    <state width="1477" height="124" key="GridCell.Tab.0.left/0.23.1536.867@0.23.1536.867" timestamp="1610914392161" />
     <state width="1448" height="174" key="GridCell.Tab.0.left/0.23.1536.869@0.23.1536.869" timestamp="1610476663691" />
-    <state width="1448" height="174" key="GridCell.Tab.0.right" timestamp="1610480061197">
+    <state width="1494" height="62" key="GridCell.Tab.0.right" timestamp="1610940305296">
+      <screen x="0" y="23" width="1536" height="857" />
+    </state>
+    <state width="1494" height="254" key="GridCell.Tab.0.right/0.23.1536.855@0.23.1536.855" timestamp="1610937164637" />
+    <state width="1494" height="62" key="GridCell.Tab.0.right/0.23.1536.857@0.23.1536.857" timestamp="1610940305296" />
+    <state width="1494" height="96" key="GridCell.Tab.0.right/0.23.1536.860@0.23.1536.860" timestamp="1610939092358" />
+    <state width="1477" height="363" key="GridCell.Tab.0.right/0.23.1536.862@0.23.1536.862" timestamp="1610934469776" />
+    <state width="1477" height="365" key="GridCell.Tab.0.right/0.23.1536.865@0.23.1536.865" timestamp="1610914441486" />
+    <state width="1477" height="124" key="GridCell.Tab.0.right/0.23.1536.867@0.23.1536.867" timestamp="1610914392161" />
+    <state width="1448" height="174" key="GridCell.Tab.0.right/0.23.1536.869@0.23.1536.869" timestamp="1610476663692" />
+    <state x="364" y="162" key="NewModule_or_Project.wizard" timestamp="1610938328582">
+      <screen x="0" y="23" width="1536" height="857" />
+    </state>
+    <state x="364" y="162" key="NewModule_or_Project.wizard/0.23.1536.857@0.23.1536.857" timestamp="1610938328582" />
+    <state x="232" y="23" key="SettingsEditor" timestamp="1610935866268">
+      <screen x="0" y="23" width="1536" height="855" />
+    </state>
+    <state x="232" y="23" key="SettingsEditor/0.23.1536.855@0.23.1536.855" timestamp="1610935866268" />
+    <state x="232" y="23" key="SettingsEditor/0.23.1536.860@0.23.1536.860" timestamp="1610855349170" />
+    <state x="232" y="23" key="SettingsEditor/0.23.1536.862@0.23.1536.862" timestamp="1610910812351" />
+    <state x="263" y="33" key="SettingsEditor/0.23.1536.865@0.23.1536.865" timestamp="1610471704358" />
+    <state x="472" y="351" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1610855870701">
       <screen x="0" y="23" width="1536" height="862" />
     </state>
-    <state width="1448" height="174" key="GridCell.Tab.0.right/0.23.1536.862@0.23.1536.862" timestamp="1610480061197" />
-    <state width="1448" height="174" key="GridCell.Tab.0.right/0.23.1536.865@0.23.1536.865" timestamp="1610476586003" />
-    <state width="1448" height="174" key="GridCell.Tab.0.right/0.23.1536.867@0.23.1536.867" timestamp="1610476690887" />
-    <state width="1448" height="174" key="GridCell.Tab.0.right/0.23.1536.869@0.23.1536.869" timestamp="1610476663692" />
-    <state x="263" y="33" key="SettingsEditor" timestamp="1610471704358">
+    <state x="472" y="351" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.23.1536.862@0.23.1536.862" timestamp="1610855870701" />
+    <state x="142" y="123" width="1319" height="639" key="dock-window-1" timestamp="1610911475748">
       <screen x="0" y="23" width="1536" height="865" />
     </state>
-    <state x="263" y="33" key="SettingsEditor/0.23.1536.862@0.23.1536.862" timestamp="1610471530907" />
-    <state x="263" y="33" key="SettingsEditor/0.23.1536.865@0.23.1536.865" timestamp="1610471704358" />
-    <state x="478" y="49" width="598" height="737" key="find.popup" timestamp="1610478674820">
-      <screen x="0" y="23" width="1536" height="869" />
+    <state x="142" y="123" width="1319" height="639" key="dock-window-1/0.23.1536.865@0.23.1536.865" timestamp="1610911475748" />
+    <state x="478" y="49" width="598" height="726" key="find.popup" timestamp="1610936246006">
+      <screen x="0" y="23" width="1536" height="855" />
     </state>
+    <state x="478" y="49" width="598" height="726" key="find.popup/0.23.1536.855@0.23.1536.855" timestamp="1610936246006" />
+    <state x="478" y="49" width="598" height="730" key="find.popup/0.23.1536.860@0.23.1536.860" timestamp="1610854580462" />
     <state x="478" y="49" width="598" height="735" key="find.popup/0.23.1536.865@0.23.1536.865" timestamp="1610475252851" />
     <state x="478" y="49" width="598" height="737" key="find.popup/0.23.1536.867@0.23.1536.867" timestamp="1610476707594" />
     <state x="478" y="49" width="598" height="737" key="find.popup/0.23.1536.869@0.23.1536.869" timestamp="1610478674820" />

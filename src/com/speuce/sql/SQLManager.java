@@ -1,19 +1,12 @@
 package com.speuce.sql;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 
 
 public class SQLManager {
@@ -131,5 +124,8 @@ public class SQLManager {
 	public void close(ResultSet conn) {
         if (conn != null) try { conn.close(); } catch (SQLException ignored) {}
 	}
+    public void close(Statement conn) {
+        if (conn != null) try { conn.close(); } catch (SQLException ignored) {}
+    }
 }
 

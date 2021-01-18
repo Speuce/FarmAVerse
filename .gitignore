@@ -2,3 +2,5 @@
 *.class
 *.class
 target/*
+*.DS_Store
+.DS_Store

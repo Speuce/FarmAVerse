@@ -78,6 +78,14 @@ public class FarmTopia extends JavaPlugin implements Listener{
 	public ShopManager getShop() {
 		return this.shop;
 	}
+
+
+    /**
+     * Registers the given listener
+     */
+	public static void registerListener(Listener l){
+	    Bukkit.getServer().getPluginManager().registerEvents(l, getFarmTopia());
+    }
 	@Override
 	public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
         return chunk;

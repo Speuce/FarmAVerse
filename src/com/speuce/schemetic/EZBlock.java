@@ -4,8 +4,11 @@ import java.util.EnumSet;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import me.idlibrary.main.IDLibrary;
+
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.Farmland;
 import org.bukkit.material.MaterialData;
 
 @Deprecated
@@ -35,16 +38,35 @@ public class EZBlock {
 	public EBlock convert(){
 		
 		Material newM = convertMaterial(type, damage);
+		if(newM == null){
+		    Bukkit.broadcastMessage("NEWM IS NULL");
+        }
 		BlockData b = Bukkit.getUnsafe().fromLegacy(newM, damage);
 		EBlock ret = new EBlock(newM, b);
 		System.out.println("Converted: " + toString() + " to: " + ret.toString());
 		return ret;
 	}  
-	private static Material convertMaterial(int ID, byte Data) {
-	    for(Material i : EnumSet.allOf(Material.class))
-	    	if(i.getId() == ID) 
-	    		return Bukkit.getUnsafe().fromLegacy(new MaterialData(i, Data));
-	    return null;
+	private static Material convertMaterial(int ID, byte data) {
+	    System.out.println("Converting: " + ID + ":" + data);
+	    Material ret = null;
+	    if(ID == 60){
+//	        Farmland bd = ((Farmland)Material.FARMLAND.createBlockData());
+//	        bd.setMoisture(data);
+            ret =  Material.FARMLAND;
+        }else if(ID == 83){
+	        ret =  Material.SUGAR_CANE;
+        }
+
+	    if(data != 0){
+            ret = IDLibrary.getMaterial(ID + ":" + data);
+        }else{
+	        ret =  IDLibrary.getMaterial(ID + "");
+        }
+	    if(ret == null){
+	        ret = IDLibrary.getMaterial(ID + "");
+        }
+	    return ret;
+
 	}
 	protected static BlockFace getFacing(byte dir) {
         switch (dir) {

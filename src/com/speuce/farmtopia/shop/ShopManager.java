@@ -1,10 +1,6 @@
 package com.speuce.farmtopia.shop;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -292,18 +288,20 @@ public class ShopManager implements CommandExecutor, Listener{
 			@Override
 			public void run() {
 				Connection c = null;
-				PreparedStatement ps = null;
+				Statement ps = null;
 				try {
+				    //`
 					c = sql.getConnection();
-					ps = c.prepareStatement("CREATE TABLE IF NOT EXISTS `shop` "
-							+ "( `id` INTEGER PRIMARY KEY ,"
-							+ " `item` SMALLINT NOT NULL , "
-							+ "`amount` SMALLINT NOT NULL , "
-							+ "`price` DOUBLE NOT NULL , "
-							+ "`created` TIMESTAMP NOT NULL ,"
-							+ " `taken` BOOLEAN NOT NULL DEFAULT FALSE , "
-							+ "`shopid` INT NOT NULL);");
-					ps.execute();
+					String query = "CREATE TABLE IF NOT EXISTS 'shop' "
+                            + "( 'id' INTEGER PRIMARY KEY ,"
+                            + " 'item' SMALLINT NOT NULL , "
+                            + "'amount' SMALLINT NOT NULL , "
+                            + "'price' DOUBLE NOT NULL , "
+                            + "'created' TIMESTAMP NOT NULL ,"
+                            + " 'taken' BOOLEAN NOT NULL DEFAULT FALSE , "
+                            + "'shopid' INT NOT NULL);";
+					ps = c.createStatement();
+					ps.executeUpdate(query);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}finally{

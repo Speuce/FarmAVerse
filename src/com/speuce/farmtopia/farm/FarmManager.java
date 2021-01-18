@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.speuce.farmtopia.farm.handlers.PhysicsHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
@@ -100,6 +101,7 @@ public class FarmManager implements Listener, CommandExecutor {
 	private World main;
 
 	public FarmManager(FarmTopia main, SQLManager sql, JobManager jobs) {
+	    new PhysicsHandler(this);
 		this.jobs = jobs;
 		this.schem = main.getSchem();
 		this.availableLocs = new ConcurrentLinkedQueue<Location>();
@@ -279,10 +281,7 @@ public class FarmManager implements Listener, CommandExecutor {
 		// e.setResult(Result.DENY);
 		e.setCancelled(true);
 	}
-	@EventHandler
-	public void onMoistureChange(MoistureChangeEvent e){
-		e.setCancelled(true);
-	}
+
 	private BukkitRunnable getFarmUpdater() {
 		return new BukkitRunnable() {
 
@@ -329,10 +328,7 @@ public class FarmManager implements Listener, CommandExecutor {
 		return 0;
 	}
 
-	@EventHandler
-	public void onSpread(BlockSpreadEvent e) {
-		e.setCancelled(true);
-	}
+
 
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
@@ -546,21 +542,13 @@ public class FarmManager implements Listener, CommandExecutor {
 		}
 	}
 
-	@EventHandler
-	public void onGrow(StructureGrowEvent e) {
-		e.setCancelled(true);
-	}
+
 
 	@EventHandler
 	public void onClose(InventoryCloseEvent e) {
 	}
 
-	@EventHandler(priority = EventPriority.LOW)
-	public void onPlace(BlockPlaceEvent e) {
-		if (!e.getPlayer().getGameMode().equals(GameMode.CREATIVE)) {
-			e.setCancelled(true);
-		}
-	}
+
 
 	public void buildSchem(String name, Block place) {
 		Schematic sc = schem.getSchemetic(name);
@@ -588,7 +576,7 @@ public class FarmManager implements Listener, CommandExecutor {
 				for (Player p : Bukkit.getOnlinePlayers()) {
 					if (p.getLocation().getY() <= 70) {
 						Farm f = loadedFarms.get(p);
-						if (f != null) {
+						if (f != null && p != null) {
 							teleportTo(p, f);
 						}
 					}
@@ -724,41 +712,10 @@ public class FarmManager implements Listener, CommandExecutor {
 		}
 	}
 
-	@EventHandler
-	public void onBlockGrow(BlockGrowEvent e) {
-		e.setCancelled(true);
-	}
 
-	@EventHandler
-	public void onBlockFade(BlockFadeEvent e) {
-		e.setCancelled(true);
-	}
 
-	@EventHandler
-	public void onBreak(BlockBreakEvent e) {
-		if (e.getPlayer() != null && !e.getPlayer().getGameMode().equals(GameMode.CREATIVE)) {
-			e.setCancelled(true);
-		}
-	}
 
-	@EventHandler
-	public void onPhysics(BlockPhysicsEvent e) {
-		// if(e.getChangedType() == Material.CROPS || e.getBlock().getType() ==
-		// Material.CROPS
-		// || e.getChangedType() == Material.WHEAT || e.getBlock().getType() ==
-		// Material.WHEAT
-		// ||e.getChangedType() == Material.LONG_GRASS
-		// || e.getBlock().getType() == Material.LONG_GRASS
-		// || e.getChangedType() == Material.RED_ROSE
-		// || e.getBlock().getType() == Material.RED_ROSE
-		// || e.getBlock().getType() == Material.TORCH
-		// || e.getChangedType() == Material.TORCH){
-		// e.setCancelled(true);
-		// }
-		e.setCancelled(true);
-		// Bukkit.broadcastMessage(e.getBlock().getType().toString() + ":" +
-		// e.getChangedType().toString());
-	}
+
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
@@ -835,8 +792,9 @@ public class FarmManager implements Listener, CommandExecutor {
 	}
 
 	private void teleportTo(Player p, Farm f) {
-		p.setVelocity(new Vector(0, 1, 0));
-		p.teleport(f.getPlot(0).getChunk().getBlock(7, Constant.baseY + 3, 7).getLocation());
+	    Plot plot = f.getPlot(0);
+		p.teleport(plot.getChunk().getBlock(7, Constant.baseY + 3, 7).getLocation());
+        p.setVelocity(new Vector(0, 1, 0));
 	}
 
 	private void makeTable() {

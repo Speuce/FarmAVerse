@@ -21,5 +21,14 @@
     <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:2.4.5" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.18" level="project" />
     <orderEntry type="library" name="Maven: org.xerial:sqlite-jdbc:3.25.2" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: IDLibrary:me.idlibrary.main.IDLibrary:2.53.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/Resources/ID-Library.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

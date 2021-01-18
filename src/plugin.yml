@@ -3,6 +3,7 @@ version: 1.0
 api-version: 1.13
 main: com.speuce.farmtopia.main.FarmTopia
 author: Speuce
+depend: [ID-Library]
 commands:
   save:
     usage: /save <name>
