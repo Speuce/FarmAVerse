@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import com.speuce.farmtopia.Constant;
 import com.speuce.farmtopia.resources.Resource;
 
-public class Item implements CommandExecutor{
+public class ItemCommand implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {

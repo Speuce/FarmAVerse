@@ -13,6 +13,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.speuce.farmtopia.commands.ExpCommand;
+import com.speuce.farmtopia.commands.FarmCommand;
+import com.speuce.farmtopia.commands.PurgeCommand;
 import com.speuce.farmtopia.farm.handlers.PhysicsHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -84,7 +87,7 @@ import com.speuce.sql.SQLManager;
 import com.speuce.sql.TableCheck;
 import com.speuce.sql.booleanQuery;
 
-public class FarmManager implements Listener, CommandExecutor {
+public class FarmManager implements Listener{
 	private Map<Player, Farm> loadedFarms;
 	private Map<Location, Farm> lookup;
 	private SchemeticManager schem;
@@ -112,9 +115,9 @@ public class FarmManager implements Listener, CommandExecutor {
 		this.loadedFarms = new HashMap<Player, Farm>();
 		this.lookup = new HashMap<Location, Farm>();
 		this.clear = schem.getSchemetic("clear");
-		main.getCommand("farm").setExecutor(this);
-		main.getCommand("exp").setExecutor(this);
-		main.getCommand("purge").setExecutor(this);
+		main.getCommand("farm").setExecutor(new FarmCommand(this));
+		main.getCommand("exp").setExecutor(new ExpCommand(this));
+		main.getCommand("purge").setExecutor(new PurgeCommand(this));
 		main.getServer().getPluginManager().registerEvents(this, main);
 		sql.Query(new TableCheck("farms", new booleanQuery() {
 
@@ -133,125 +136,42 @@ public class FarmManager implements Listener, CommandExecutor {
 
 	}
 
+    /**
+     * Get the farm of the given player
+     * @param p the player to get the farm of
+     * @return the {@link Farm} if loaded, {@code null} otherwise.
+     */
 	public Farm getFarm(Player p) {
 		return this.loadedFarms.get(p);
 	}
+
+    /**
+     * Checks whether a farm for the given player has been loaded into the cache
+     * @param p the player to check
+     * @return true if the farm is loaded, false otherwise.
+     */
+	public boolean hasFarm(Player p){
+	    return this.loadedFarms.containsKey(p);
+    }
+
+    /**
+     * Gets the farm nearest to the given location.
+     * @param l the location to search
+     * @return the {@link Farm} that the location is likely in, or {@code null}
+     *      if the location is out of bounds of where a farm would be
+     */
+    public Farm getFarmAtLocation(Location l){
+        Location pl = new Location(l.getWorld(),
+                nearest500(l.getBlockX() - 16), Constant.baseY,
+                nearest500(l.getBlockZ() - 16));
+        return lookup.get(pl);
+    }
 
 	public FarmTopia getPlugin() {
 		return this.pl;
 	}
 
-	@EventHandler
-	public void onPickup(EntityPickupItemEvent e) {
-		if (e.getEntityType() == EntityType.PLAYER && e.getItem().getItemStack().getType() == Material.BOW) {
-			ItemStack s = e.getItem().getItemStack();
-			Player p = (Player) e.getEntity();
-			Constant.forceGive(p, s);
-			// Bukkit.broadcastMessage(s.getAmount() + "");
-			Constant.playsound(p, Sound.ENTITY_ITEM_PICKUP, 1F);
-			e.setCancelled(true);
-			// e.getItem().setItemStack(new ItemStack(Material.AIR));
-			e.getItem().remove();
-			// e.setCancelled(true);
-		}
 
-	}
-
-	@SuppressWarnings("deprecation")
-	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void itemStackManager(InventoryClickEvent e) {
-
-		// Bukkit.broadcastMessage("click1");
-
-		if (e.getCurrentItem() != null && e.getCursor() != null && e.getCurrentItem().getType() == Material.BOW
-				&& e.getCursor().getType() == Material.BOW && e.getAction() != InventoryAction.COLLECT_TO_CURSOR) {
-			if (e.getCurrentItem().getDurability() == e.getCursor().getDurability()) {
-				Constant.debug(e.getAction().toString());
-				Constant.debug("CurrentItem: " + Constant.itemInfo(e.getCurrentItem()));
-				Constant.debug("Cursor: " + Constant.itemInfo(e.getCursor()));
-				Constant.debug("Clicktype: " + e.getClick());
-				// if (!(e.getAction().toString().contains("PICKUP") ||
-				// (e.getAction().equals(InventoryAction.PICKUP_SOME) &&
-				// e.getClick() == ClickType.LEFT))) {
-				// if(e.getCurrentItem().getType() == Material.BOW &&
-				// e.getCursor().getType() == Material.BOW){
-				// if(e.getCurrentItem().getDurability() ==
-				// e.getCursor().getDurability()){
-
-				// Bukkit.broadcastMessage(e.getCurrentItem().toString()
-				// + ":" + e.getCursor().toString());
-				if (e.getClick() == ClickType.LEFT) {
-					if (e.getCurrentItem().getAmount() < 64) {
-
-						int spaceLeft = 64 - e.getCurrentItem().getAmount();
-						if (spaceLeft >= e.getCursor().getAmount()) {
-							 Constant.debug("Click2");
-							e.getCurrentItem().setAmount(e.getCurrentItem().getAmount() + e.getCursor().getAmount());
-							e.setCursor(null);
-							((Player) e.getWhoClicked()).updateInventory();
-							// Bukkit.broadcastMessage("yes5");
-						} else {
-							// Bukkit.broadcastMessage("click3");
-							 Constant.debug("Click3");
-							e.getCurrentItem().setAmount(64);
-							ItemStack s = e.getCursor();
-							s.setAmount(s.getAmount() - spaceLeft);
-							e.setCursor(s);
-							// e.getCursor().setAmount(e.getCursor().getAmount()
-							// - spaceLeft);
-							((Player) e.getWhoClicked()).updateInventory();
-							// Bukkit.broadcastMessage("yes6");
-						}
-						e.setCancelled(true);
-
-					}else{
-						Constant.debug("ret");
-						e.setCancelled(true);
-						((Player) e.getWhoClicked()).updateInventory();
-						return;
-					}
-				} else if (e.getClick() == ClickType.RIGHT) {
-					// Constant.debug("rightt");
-					if (e.getCurrentItem().getAmount() < 64) {
-						e.getCurrentItem().setAmount(e.getCurrentItem().getAmount() + 1);
-						if (e.getCursor().getAmount() == 1) {
-							e.setCursor(null);
-							((Player) e.getWhoClicked()).updateInventory();
-						} else {
-							e.getCursor().setAmount(e.getCursor().getAmount() - 1);
-						}
-						// int spaceLeft = 64 - e.getCurrentItem().getAmount();
-						e.setCancelled(true);
-
-					}
-				}
-
-			}
-
-		} else if (e.getCursor() != null && e.getCursor().getType() == Material.BOW
-				&& e.getAction() == InventoryAction.COLLECT_TO_CURSOR) {
-			//Constant.debug("work: " + e.getClickedInventory().getSize());
-			
-			int slotcheck = 0;
-			while (e.getCursor().getAmount() < 64 && slotcheck < e.getClickedInventory().getSize()) {
-				ItemStack check = e.getClickedInventory().getItem(slotcheck);
-				//Constant.debug("Check: " + Constant.itemInfo(check));
-				if (check != null && check.getType() == Material.BOW
-						&& check.getDurability() == e.getCursor().getDurability()) {
-					int maxamt = 64 - e.getCursor().getAmount();
-					if (check.getAmount() > maxamt) {
-						e.getCursor().setAmount(64);
-						check.setAmount(check.getAmount() - maxamt);
-					} else {
-						e.getCursor().setAmount(e.getCursor().getAmount() + check.getAmount());
-						e.getClickedInventory().setItem(slotcheck, null);
-					}
-				}
-				slotcheck++;
-			}
-			((Player) e.getWhoClicked()).updateInventory();
-		}
-	}
 
 	private BukkitRunnable getPlotUpdater() {
 		return new BukkitRunnable() {
@@ -336,215 +256,6 @@ public class FarmManager implements Listener, CommandExecutor {
 	}
 
 	@EventHandler
-	public void onInventoryClick(InventoryClickEvent e) {
-		// Bukkit.broadcastMessage("clicked");
-		if (e.getClickedInventory() != null && e.getView().getTitle() != null) {
-			if (e.getView().getTitle().contains("Harvested")) {
-				if (e.getCurrentItem() == null) {
-					return;
-				}
-				e.setCancelled(true);
-				if (e.getCurrentItem() == null || !e.getCurrentItem().hasItemMeta()) {
-					return;
-				}
-				if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Ok")) {
-					e.getWhoClicked().closeInventory();
-					return;
-				}
-			} else if (e.getView().getTitle()
-					.equalsIgnoreCase(ChatColor.DARK_PURPLE.toString() + "Farm Menu")) {
-				e.setCancelled(true);
-				if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta()) {
-					if (e.getCurrentItem().getItemMeta().getDisplayName().contains("another Plot")) {
-						Player pl = (Player) e.getWhoClicked();
-						Farm f = this.loadedFarms.get(pl);
-						double cost = f.getCostt();
-						if (Economy.hasEnough(pl.getUniqueId(), cost)) {
-							Plot ne = new EmptyPlot(f);
-							PlotBuilder pb = new PlotBuilder(ne, this.schem, f.getCurrentChunk());
-							pb.build(true);
-							f.buildWalls(ne, true);
-							f.nextChunk();
-							f.addPlot(ne);
-							Tutorial.onNewPlotBuild((Player) e.getWhoClicked());
-							Economy.subtractBal(pl.getUniqueId(), cost);
-							pl.getWorld().playSound(pl.getLocation(), Sound.BLOCK_ANVIL_USE, 3.5F, 0F);
-							pl.sendMessage(ChatColor.GREEN.toString() + "Plot added!");
-							pl.closeInventory();
-						} else {
-							pl.sendMessage(ChatColor.RED.toString() + "You don't have enough for that!");
-							return;
-						}
-					} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Jobs")) {
-						Player pl = (Player) e.getWhoClicked();
-						Bukkit.dispatchCommand(pl, "j");
-					}
-				}
-			} else if (e.getView().getTitle().startsWith("Upgrade")) {
-				e.setCancelled(true);
-				if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta()) {
-					if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Cancel")) {
-						e.getWhoClicked().closeInventory();
-						return;
-					} else if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Buy")) {
-						Player pl = (Player) e.getWhoClicked();
-						Farm f = this.loadedFarms.get(pl);
-						Plot p = f.getPlot(e.getWhoClicked().getLocation().getChunk());
-						if (p != null && p instanceof Upgradeable) {
-							Upgradeable up = (Upgradeable) p;
-							// Bukkit.broadcastMessage("purchase: " +
-							// up.canPurchase());
-							if (up.canPurchase()) {
-								int cost = up.getCost(up.getLv());
-								if (Economy.hasEnough(pl.getUniqueId(), (double) cost)) {
-									Economy.subtractBal(pl.getUniqueId(), (double) cost);
-									up.upgrade();
-								} else {
-									pl.sendMessage(ChatColor.RED + "Sorry, you need $" + cost + " for that!");
-									pl.closeInventory();
-								}
-							} else {
-								pl.playSound(pl.getLocation(), Sound.BLOCK_ANVIL_LAND, 2F, 0F);
-								return;
-							}
-
-						}
-					}
-				}
-			} else if (e.getView().getTitle().equals(Constant.setPlotName)) {
-				e.setCancelled(true);
-				if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta()) {
-					Double cost = -1D;
-					for (String s : e.getCurrentItem().getItemMeta().getLore()) {
-						if (s.contains("Cost")) {
-							if (s.contains("FREE")) {
-								cost = 0D;
-								break;
-							} else {
-								Pattern p = Pattern.compile("(\\d+(?:\\.\\d+))");
-								Matcher m = p.matcher(s);
-								if (m.find()) {
-									cost = Double.parseDouble(m.group(1));
-								}
-								break;
-							}
-
-						}
-					}
-					if (cost > -1) {
-						Class<? extends Plot> clazz = Plots
-								.getFromName(ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()));
-						if (clazz == null) {
-							throw new NullPointerException("Couldn't find plot: "
-									+ ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()));
-
-						}
-						if (Economy.hasEnough(e.getWhoClicked().getUniqueId(), cost)) {
-							Economy.subtractBal(e.getWhoClicked().getUniqueId(), cost);
-							this.loadedFarms.get(((Player) e.getWhoClicked())).plotChange(clazz);
-							e.getWhoClicked().sendMessage(ChatColor.GREEN.toString() + "Success!");
-							e.getWhoClicked().closeInventory();
-							e.getWhoClicked().setVelocity(new Vector(0, 2, 0));
-							return;
-						} else {
-							e.getWhoClicked().sendMessage(ChatColor.RED.toString() + "You need "
-									+ NumberFormat.getCurrencyInstance().format(cost) + " to buy that!");
-							return;
-						}
-					}
-				}
-			} else if (
-					e.getView().getTitle().equalsIgnoreCase(Constant.seedExtractorName)
-					&& e.isShiftClick()) {
-				e.setCancelled(true);
-				return;
-			} else if (e.getView().getTitle().equals(Constant.seedExtractorName)) {
-				// Bukkit.broadcastMessage("cli");
-				if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
-					// Bukkit.broadcastMessage("current item isn't null");
-					if (e.getCurrentItem().getType() == Material.GOLDEN_SHOVEL) {
-						e.setCancelled(true);
-					} else if (e.getSlot() == 1) {
-						// STOP
-						e.setCancelled(true);
-					} else if (e.getSlot() == 7) {
-						if (e.getCursor() == null || e.getCursor().getType() == Material.AIR) {
-							// Bukkit.broadcastMessage("where it should be
-							// going.");
-							e.setCancelled(false);
-							Plot pl = this.loadedFarms.get((Player) e.getWhoClicked())
-									.getFirstPlot(ResearchCentre.class);
-							if (pl != null && pl instanceof ResearchCentre) {
-								ResearchCentre rs = (ResearchCentre) pl;
-								rs.takeExtractProduct();
-								// Bukkit.broadcastMessage("take");
-							}
-						} else {
-							e.setCancelled(true);
-						}
-					} else {
-						e.setCancelled(true);
-					}
-
-				} else {
-					if (e.getSlot() != 1) {
-						e.setCancelled(true);
-					}
-					// else{
-					// if(e.getCursor() != null && e.getCursor().getType() !=
-					// Material.AIR){
-					// //START
-					// Resource r = Resource.getByItem(e.getCursor());
-					// if(r != null && r != Resource.NOTHING){
-					// //REAL start
-					// //Bukkit.broadcastMessage("strt");
-					// Farm farm =
-					// this.loadedFarms.get((Player)e.getWhoClicked());
-					// Plot pl = farm.getFirstPlot(ResearchCentre.class);
-					// if(pl != null && pl instanceof ResearchCentre){
-					// //Bukkit.broadcastMessage("testexc");
-					// if(Constant.canExtract(r)){
-					// //Bukkit.broadcastMessage("can extract");
-					// //TODO take seeds
-					//
-					// ResearchCentre rs = (ResearchCentre) pl;
-					//
-					// e.getWhoClicked().sendMessage(ChatColor.GREEN.toString()
-					// + "Extraction Started.");
-					// e.setCancelled(true);
-					// if(e.getCursor().getAmount() == 1){
-					// e.setCursor(null);
-					// }else{
-					// ItemStack s = e.getCursor();
-					// s.setAmount(s.getAmount()-1);
-					// e.setCursor(null);
-					// Constant.forceGive((Player)e.getWhoClicked(), s);
-					// }
-					// rs.startExtract(r);
-					// ((Player)e.getWhoClicked()).updateInventory();
-					// rs.sendSeedInventory((Player)e.getWhoClicked());
-					// return;
-					// }else{
-					// e.getWhoClicked().sendMessage(ChatColor.RED.toString() +
-					// "That Item Cannot Be Extracted!");
-					// }
-					//
-					// }
-					// }
-					// }
-					// //Bukkit.broadcastMessage("canc");
-					// e.setCancelled(true);
-					// ((Player)e.getWhoClicked()).updateInventory();
-					// }
-
-				}
-			}
-		}
-	}
-
-
-
-	@EventHandler
 	public void onClose(InventoryCloseEvent e) {
 	}
 
@@ -617,105 +328,6 @@ public class FarmManager implements Listener, CommandExecutor {
 		// e.setCancelled(true);
 		// }
 	}
-
-	@EventHandler
-	public void onEntityInteract(PlayerInteractEntityEvent e) {
-		if(e.getRightClicked() != null) {
-			Location l = e.getRightClicked().getLocation();
-			Location pl = new Location(l.getWorld(), this.nearest500(l.getBlockX() - 16),
-					Constant.baseY, this.nearest500(l.getBlockZ() - 16));
-			if(lookup.containsKey(pl)) {
-				Farm f = lookup.get(pl);
-				Plot plot = f.getPlot(l.getChunk());
-				if (plot != null) {
-					plot.onEntityInteract(e);
-				}
-			}else {
-				db("Ent clik not at farm.");
-				return;
-			}
-		}
-	}
-	@EventHandler
-	public void onInteract(PlayerInteractEvent e) {
-		if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.EXPERIENCE_BOTTLE
-				&& e.getAction().toString().contains("RIGHT")) {
-			Resource s = Resource.getByItem(e.getPlayer().getInventory().getItemInMainHand());
-			if (s != null) {
-				if (s == Resource.XP_BOTTLE_SMALL) {
-					this.loadedFarms.get(e.getPlayer()).addExp(r.nextInt(10) + 10);
-					int amt = e.getPlayer().getInventory().getItemInMainHand().getAmount();
-					if (amt > 1) {
-						e.getPlayer().getInventory().getItemInMainHand().setAmount(amt - 1);
-					} else {
-						e.getPlayer().getInventory().setItemInMainHand(null);
-					}
-				}
-			}
-			e.setCancelled(true);
-			return;
-		}
-		if ((e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK)
-				&& e.getHand().equals(EquipmentSlot.HAND)) {
-			// Bukkit.broadcastMessage("Interact");
-			Location pl = new Location(e.getClickedBlock().getWorld(), this.nearest500(e.getClickedBlock().getX() - 16),
-					Constant.baseY, this.nearest500(e.getClickedBlock().getZ() - 16));
-			if (this.lookup.containsKey(pl)) {
-				Farm f = this.lookup.get(pl);
-				if (f.getOwner() == e.getPlayer()) {
-					Plot plot = f.getPlot(e.getClickedBlock().getChunk());
-					if (plot != null) {
-						plot.onInteractOwner(e);
-					}
-				} else {
-					e.getPlayer().sendMessage(ChatColor.RED + "This is not your farm!");
-					e.setCancelled(true);
-					return;
-				}
-
-			}
-		} else if (e.getAction() == Action.PHYSICAL) {
-			if (e.getClickedBlock() != null && e.getClickedBlock().getType() == Material.FARMLAND) {
-				e.setCancelled(true);
-			}
-		}
-	}
-
-	@EventHandler
-	public void onSneak(PlayerToggleSneakEvent e) {
-		if (e.getPlayer().isOp() && e.getPlayer().isSneaking()) {
-			ItemStack s = e.getPlayer().getInventory().getItemInMainHand();
-
-			if (s != null && Resource.getByItem(s).equals(Resource.DEV_WAND)) {
-				if (Constant.hasDebug(e.getPlayer())) {
-					Constant.removeDebug(e.getPlayer());
-					e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE.toString() + "Debug Text Disabled.");
-				} else {
-					Constant.addDebug(e.getPlayer());
-					e.getPlayer().sendMessage(ChatColor.GREEN.toString() + "Debug Text Enabled.");
-				}
-			}
-		}
-		if (e.isSneaking()) {
-			Location pl = new Location(e.getPlayer().getWorld(),
-					this.nearest500(e.getPlayer().getLocation().getBlockX() - 16), Constant.baseY,
-					this.nearest500(e.getPlayer().getLocation().getBlockZ() - 16));
-			if (this.lookup.containsKey(pl)) {
-				Farm f = this.lookup.get(pl);
-				Plot plot = f.getPlot(e.getPlayer().getLocation().getChunk());
-				if (plot != null && plot instanceof FarmPlot) {
-					FarmPlot fp = (FarmPlot) plot;
-					fp.onShift(e.getPlayer().getLocation());
-				}
-
-			}
-		}
-	}
-
-
-
-
-
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
@@ -791,7 +403,7 @@ public class FarmManager implements Listener, CommandExecutor {
 		}
 	}
 
-	private void teleportTo(Player p, Farm f) {
+	public void teleportTo(Player p, Farm f) {
 	    Plot plot = f.getPlot(0);
 		p.teleport(plot.getChunk().getBlock(7, Constant.baseY + 3, 7).getLocation());
         p.setVelocity(new Vector(0, 1, 0));
@@ -936,7 +548,7 @@ public class FarmManager implements Listener, CommandExecutor {
 		br.runTask(this.pl);
 	}
 
-	private void newPlayer(Player p, World w, FarmReady fr) throws InterruptedException {
+	public void newPlayer(Player p, World w, FarmReady fr) throws InterruptedException {
 		Resource r = Resource.WHEAT_SEEDS;
 		ItemStack i = r.toItemStack(5);
 		p.getInventory().addItem(i);
@@ -1014,7 +626,13 @@ public class FarmManager implements Listener, CommandExecutor {
 		}
 	}
 
-	private void deleteData(Player p) {
+	public void deleteData(Player p) {
+        Farm f = getFarm(p);
+        lookup.remove(f.getBaseLocation());
+        loadedFarms.remove(f);
+
+
+
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
@@ -1044,89 +662,11 @@ public class FarmManager implements Listener, CommandExecutor {
 		return ret;
 	}
 
-	private int nearest500(int val) {
+	public int nearest500(int val) {
 		return (int) Math.ceil(val / 500D) * 500;
 	}
 
-	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] arg3) {
-		if (cmd.getName().equalsIgnoreCase("farm")) {
-			if (sender instanceof Player) {
-				Player pl = (Player) sender;
-				if (this.loadedFarms.containsKey(pl)) {
-					pl.openInventory(Farm.getMenu(this.loadedFarms.get(pl)));
-					return true;
-				} else {
-					pl.sendMessage(ChatColor.RED
-							+ "Sorry, your farm isn't loaded yet! (try relogging if you keep seeing this)");
-					return true;
-				}
-			}
-		} else if (cmd.getName().equalsIgnoreCase("exp")) {
-			if (sender.isOp()) {
-				if (arg3.length == 2) {
-					Player target = Constant.getPlayer(arg3[0]);
-					int amt = Constant.getInt(arg3[1]);
-					if (amt == 0 || target == null) {
-						sender.sendMessage(ChatColor.RED.toString() + "Bad number or bad player!");
-						return true;
-					} else {
 
-						if (amt > 0) {
-							this.loadedFarms.get(target).addExp(amt);
-							return true;
-						} else {
-							this.loadedFarms.get(target).subtractExp(Math.abs(amt));
-							// sender.sendMessage(ChatColor.RED.toString() +
-							// "Took " + amt );
-							return true;
-						}
-
-					}
-
-				} else {
-					return false;
-				}
-			} else {
-				sender.sendMessage(ChatColor.RED.toString() + "Nice try..");
-				return true;
-			}
-		} else if (cmd.getName().equalsIgnoreCase("purge")) {
-			if (sender.isOp() && arg3.length == 1) {
-				Player target = Constant.getPlayer(arg3[0]);
-				if (target != null) {
-					target.sendMessage(ChatColor.RED.toString() + "Your data has been purged..");
-					target.getInventory().clear();
-					Farm f = this.loadedFarms.get(target);
-					target.teleport(new Location(target.getWorld(), 0, Constant.baseY + 5, 0));
-					cleanFarm(f);
-					this.deleteData(target);
-					lookup.remove(f.getBaseLocation());
-					loadedFarms.remove(target);
-					try {
-						this.newPlayer(target, target.getWorld(), new FarmReady() {
-
-							@Override
-							public void onFinish(Farm f) {
-								teleportTo(target, f);
-								target.setExp(f.getProgress() / 255F);
-								target.setLevel(f.getLevel());
-								target.sendMessage(ChatColor.GREEN + "Welcome to your Farm!");
-							}
-						});
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					sender.sendMessage(ChatColor.GREEN.toString() + "Success!");
-					return true;
-				} else {
-					sender.sendMessage(ChatColor.RED.toString() + "Target not found!");
-					return true;
-				}
-			}
-		}
-		return false;
-	}
 	public void db(String s) {
 		Debug.getInstance().log(Debug.Type.FARM, s);
 	}
