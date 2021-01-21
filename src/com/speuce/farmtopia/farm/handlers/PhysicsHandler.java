@@ -1,8 +1,7 @@
 package com.speuce.farmtopia.farm.handlers;
 
-import com.speuce.farmtopia.farm.FarmManager;
+import com.speuce.farmtopia.farm.manager.FarmManager;
 import com.speuce.farmtopia.main.FarmTopia;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

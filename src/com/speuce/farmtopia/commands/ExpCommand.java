@@ -1,8 +1,7 @@
 package com.speuce.farmtopia.commands;
 
 import com.speuce.farmtopia.Constant;
-import com.speuce.farmtopia.farm.FarmManager;
-import javafx.scene.web.HTMLEditorSkin;
+import com.speuce.farmtopia.farm.manager.FarmManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

@@ -1,7 +1,7 @@
 package com.speuce.farmtopia.farm.handlers;
 
 import com.speuce.farmtopia.Constant;
-import com.speuce.farmtopia.farm.FarmManager;
+import com.speuce.farmtopia.farm.manager.FarmManager;
 import com.speuce.farmtopia.main.FarmTopia;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

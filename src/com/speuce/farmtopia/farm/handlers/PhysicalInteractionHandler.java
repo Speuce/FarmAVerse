@@ -2,13 +2,12 @@ package com.speuce.farmtopia.farm.handlers;
 
 import com.speuce.farmtopia.Constant;
 import com.speuce.farmtopia.farm.Farm;
-import com.speuce.farmtopia.farm.FarmManager;
+import com.speuce.farmtopia.farm.manager.FarmManager;
 import com.speuce.farmtopia.main.FarmTopia;
 import com.speuce.farmtopia.plot.FarmPlot;
 import com.speuce.farmtopia.plot.Plot;
 import com.speuce.farmtopia.resources.Resource;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;

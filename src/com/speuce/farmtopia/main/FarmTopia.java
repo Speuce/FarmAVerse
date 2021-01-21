@@ -3,6 +3,7 @@ package com.speuce.farmtopia.main;
 import java.text.NumberFormat;
 import java.util.stream.Stream;
 
+import com.speuce.farmtopia.commands.ItemCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -14,9 +15,8 @@ import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.speuce.farmtopia.commands.Item;
 import com.speuce.farmtopia.craft.CraftingManager;
-import com.speuce.farmtopia.farm.FarmManager;
+import com.speuce.farmtopia.farm.manager.FarmManager;
 import com.speuce.farmtopia.farm.Tutorial;
 import com.speuce.farmtopia.jobs.JobManager;
 import com.speuce.farmtopia.plot.BuildQueue;
@@ -60,7 +60,7 @@ public class FarmTopia extends JavaPlugin implements Listener{
 		chunk = new ChunkGenerator(){
 			
 		};
-		this.getCommand("item").setExecutor(new Item());
+		this.getCommand("item").setExecutor(new ItemCommand());
 		this.getCommand("balance").setExecutor(this);
 		this.getCommand("eco").setExecutor(this);
 		this.getCommand("debug").setExecutor(this);
@@ -108,6 +108,14 @@ public class FarmTopia extends JavaPlugin implements Listener{
 			Bukkit.broadcastMessage(s);
 		}
 	}
+
+    /**
+     * Get the {@link JobManager} connected to this instance
+     */
+	public JobManager getJobManager(){
+	    return this.jm;
+    }
+
 	public void spamDebug(String s){
 		this.debug(DebugLevel.SPAM, s);
 	}

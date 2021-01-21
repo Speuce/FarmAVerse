@@ -2,7 +2,7 @@ package com.speuce.farmtopia.commands;
 
 import com.speuce.farmtopia.Constant;
 import com.speuce.farmtopia.farm.Farm;
-import com.speuce.farmtopia.farm.FarmManager;
+import com.speuce.farmtopia.farm.manager.FarmManager;
 import com.speuce.farmtopia.farm.FarmReady;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

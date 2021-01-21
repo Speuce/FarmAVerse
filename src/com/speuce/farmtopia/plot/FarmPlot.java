@@ -17,7 +17,7 @@ import com.speuce.farmtopia.Constant;
 import com.speuce.farmtopia.crop.CropType;
 import com.speuce.farmtopia.crop.FarmSubplot;
 import com.speuce.farmtopia.farm.Farm;
-import com.speuce.farmtopia.farm.FarmManager;
+import com.speuce.farmtopia.farm.manager.FarmManager;
 import com.speuce.farmtopia.farm.Tutorial;
 import com.speuce.farmtopia.resources.Resource;
 
